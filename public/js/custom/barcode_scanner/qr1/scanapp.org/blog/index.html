@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<link rel="icon" sizes="144x144" href="../assets/svg/log_sq-144.jpg">
+  
+<!-- Mirrored from scanapp.org/blog/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Apr 2024 23:32:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <link href="https://minhazav.dev/" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+    <meta charset="utf-8">
+    <meta property="og:type" content="website">
+
+    
+    <title>Blog by ScanApp - QR Code scanner for web</title>
+    <meta name="title" content="Blog by ScanApp - QR Code scanner for web">
+    <meta property="twitter:title" content="Blog by ScanApp - QR Code scanner for web">
+    <meta property="og:title" content="Blog by ScanApp - QR Code scanner for web">
+    <meta property="og:url" content="index.html">
+    <meta property="twitter:url" content="index.html">
+    <meta property="twitter:card" content="summary_large_image">
+
+    <!-- description -->
+    
+    <meta name="description" content="Blog by ScanApp - find helpful articles around QR scanning, Bar Code scanning, React and Javascript technologies by amazing authors. Use ScanApp to scan QR or different Bar Codes on your web browser using camera or images.">
+    
+    
+    <meta property="twitter:image" content="../assets/svg/scanapp-logo.png">
+    <meta property="og:image" content="../assets/svg/scanapp-logo.png">
+    
+    
+
+    <!-- TODO: Add canonical link -->
+
+    <link rel="preload" href="../assets/css/poole.min.css" as="style">
+    <link rel="stylesheet" href="../assets/css/poole.min.css">
+
+    <link rel="preload" href="../assets/css/syntax.min.css" as="style">
+    <link rel="stylesheet" href="../assets/css/syntax.min.css">
+
+    <link rel="preload" href="../assets/css/lanyon.min.css" as="style">
+    <link rel="stylesheet" href="../assets/css/lanyon.min.css">
+
+    <!-- Inlined from
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+    -->
+    <style type="text/css">
+/* cyrillic-ext */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79D0-ExcOPIDUg-g.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  font-display: swap;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79D0aExcOPIDUg-g.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  font-display: swap;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79D0yExcOPIDUg-g.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79D0KExcOPIDU.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: swap;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_rC1cgT9rct48Q.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  font-display: swap;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_rm1cgT9rct48Q.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  font-display: swap;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_rO1cgT9rct48Q.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-display: swap;
+}
+/* latin */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_r21cgT9rcs.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: swap;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFbzr-_dSb_nco.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  font-display: swap;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFSzr-_dSb_nco.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  font-display: swap;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFYzr-_dSb_nco.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-display: swap;
+}
+/* latin */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFWzr-_dSb_.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: swap;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRSQgYoZZY2vCFuvAnt66qfVyvVp8NAyIw.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  font-display: swap;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRSQgYoZZY2vCFuvAnt66qWVyvVp8NAyIw.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  font-display: swap;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRSQgYoZZY2vCFuvAnt66qcVyvVp8NAyIw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-display: swap;
+}
+/* latin */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRSQgYoZZY2vCFuvAnt66qSVyvVp8NA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: swap;
+}
+
+</style>
+
+
+    <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://scanapp.org/public/apple-touch-icon-precomposed.png"> -->
+    <!-- <link rel="shortcut icon" href="https://scanapp.org/public/favicon.ico"> -->
+
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../atom.xml">
+</head>
+  <body>
+    <div class="wrap">
+      <div class="masthead">
+        <div class="header-links">         
+    <a href="../index.html">ScanApp - Home</a>
+    <a href="index.html">Blog</a>
+    <a href="../support/index.html">Support</a>
+    <a href="https://github.com/scanapp-org">GitHub project</a>
+</div>
+<style type="text/css">
+.header-links {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 13pt;
+}
+.header-links a {
+    margin: 0px 10px 0px 10px;
+    color: #303030;
+}
+.header-links a {
+    margin: 0px 10px 0px 10px;
+    color: #303030;
+}
+</style>
+        <div class="container">
+          <h3 class="masthead-title">
+            Blog by <a href="../index.html" title="Home">ScanApp</a>
+            <small>QR Code Scanner - Scan QR Code with webcam or files</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="posts">
+    
+    <div class="post">
+        <h1 class="post-title">
+            <a href="2023/03/22/the-evolution-of-barcodes-and-qr-codes.html">
+                The Evolution of Barcodes and QR Codes: How They Changed the Retail Industry
+            </a>
+        </h1>
+
+        <span class="post-date">22 Mar 2023 by <a href="#about-the-author">Myrtle Bautista</a></span>
+
+        
+        <div style="display: flex;justify-content: center;">
+            
+            <img src="../assets/images/blog/post6/pexels-imin-technology-12935064.jpg"
+                alt="The Evolution of Barcodes and QR Codes: How They Changed the Retail Industry"
+                fetchpriority="high" />
+            
+        </div>
+        
+
+        Barcodes and Quick Response (QR) codes have changed the retail industry through the years. Barcode technology reduced the need for manual data entry to streamline the checkout process. This innovation also made it easier for businesses to better manage their products and services to customers, a benefit that today's retail industry still enjoys.
+    </div>
+    
+    <div class="post">
+        <h1 class="post-title">
+            <a href="2023/03/04/why-should-you-support-html5-qrcode-by-sponsoring.html">
+                Why should you support html5-qrcode project by sponsoring
+            </a>
+        </h1>
+
+        <span class="post-date">04 Mar 2023 by <a href="https://minhazav.dev/">Minhaz</a></span>
+
+        
+        <div style="display: flex;justify-content: center;">
+            
+            <img src="../assets/images/blog/post5/sponsors-small.webp"
+                alt="Why should you support html5-qrcode project by sponsoring"
+                fetchpriority="high" />
+            
+        </div>
+        
+
+        The open source project - <a href='https://github.com/mebjas/html5-qrcode'>mebjas/html5-qrcode</a> is a fairly used library for implementing QR Code or barcode scanner in a web application. Several developers have been using it under webview for android projects as well. In this article, I want to share my humble story and make a case of why you should help support this project if you can by sponsoring the developers or in other ways possible!
+    </div>
+    
+    <div class="post">
+        <h1 class="post-title">
+            <a href="2022/11/01/using-html5-qrcode-with-only-camera-or-file-options.html">
+                Using Html5-qrcode with only Camera or File options
+            </a>
+        </h1>
+
+        <span class="post-date">01 Nov 2022 by <a href="https://mohsinaav.github.io/">Mohsina</a></span>
+
+        
+        <div style="display: flex;justify-content: center;">
+            
+            <img src="../assets/images/blog/post4/default_config.webp"
+                alt="Using Html5-qrcode with only Camera or File options"
+                fetchpriority="high" />
+            
+        </div>
+        
+
+        In this article, I'll share how to use different scan types -  camera based and file based, depending upon the scenario.
+    </div>
+    
+    <div class="post">
+        <h1 class="post-title">
+            <a href="2022/10/30/using-flash-or-torch-with-html5-qrcode.html">
+                Using Flash or Torch with Html5-Qrcode
+            </a>
+        </h1>
+
+        <span class="post-date">30 Oct 2022 by <a href="https://minhazav.dev/">Minhaz</a></span>
+
+        
+        <div style="display: flex;justify-content: center;">
+            
+            <img src="../assets/images/blog/post3/im1-optimised.jpg"
+                alt="Using Flash or Torch with Html5-Qrcode"
+                fetchpriority="high" />
+            
+        </div>
+        
+
+        <a href='https://github.com/mebjas/html5-qrcode'>mebjas/html5-qrcode</a> is a fairly used open source library for implementing QR Code or barcode scanner in a web application. There has been ask supporting torch or flash feature with the scanner. This feature is usually very well supported on native scanner apps that are available on Android or IOS. In this article I'll share how to add torch support with both end to end library (Html5QrcodeScanner) as well as the low level library  (Html5Qrcode).
+    </div>
+    
+    <div class="post">
+        <h1 class="post-title">
+            <a href="2022/01/09/setting-dynamic-qr-box-size-in-html5-qrcode.html">
+                Setting dynamic QR box size in Html5-qrcode
+            </a>
+        </h1>
+
+        <span class="post-date">09 Jan 2022 by <a href="https://minhazav.dev/">Minhaz</a></span>
+
+        
+        <div style="display: flex;justify-content: center;">
+            
+            <img src="../assets/images/blog/post1/post1_theme_image.webp"
+                alt="Setting dynamic QR box size in Html5-qrcode"
+                fetchpriority="high" />
+            
+        </div>
+        
+
+        <a href='https://github.com/mebjas/html5-qrcode'>mebjas/html5-qrcode</a> is a fairly used open source library for implementing QR Code or barcode scanner in a web application. Several developers have been using it under webview for android projects as well. This article explains how to set the dimensions of QR box dynamically based on video width or height
+    </div>
+    
+</div>
+
+<div class="pagination">
+    
+        <a class="pagination-item older" href="../page2/index.html">Older</a>
+    
+    
+        <span class="pagination-item newer">Newer</span>
+    
+</div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin: 20px">
+    &copy; 2024. All rights reserved - ScanApp.
+</div>
+    <script src='../assets/js/blog.script.js'></script>
+  </body>
+
+<!-- Mirrored from scanapp.org/blog/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Apr 2024 23:32:16 GMT -->
+</html>

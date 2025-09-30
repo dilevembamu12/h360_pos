@@ -1,0 +1,478 @@
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="IffFuMSioWiezmGVFRljK5FhlG8NXhCmb62E9Tge">
+
+    <title>S'identifier - Hospitality 360</title>
+
+    <link rel="stylesheet" href="./resources/stylesheets/vendor.css?v=511">
+    <script src="./resources/scripts/sweetalert2@11"></script>
+
+
+
+    <!-- app css -->
+    <link rel="stylesheet" href="./resources/stylesheets/app.css?v=511">
+
+    <meta name="csrf-token" content="C9LiUYIZIeFDiv1mRRRPAcvtvZJ8tfGbZFCa9tid">
+
+    <style type="text/css">
+        /*
+	* Pattern lock css
+	* Pattern direction
+	* http://ignitersworld.com/lab/patternLock.html
+	*/
+        .patt-wrap {
+            z-index: 10;
+        }
+
+        .patt-circ.hovered {
+            background-color: #cde2f2;
+            border: none;
+        }
+
+        .patt-circ.hovered .patt-dots {
+            display: none;
+        }
+
+        .patt-circ.dir {
+            background-image: url("http://h360.test/img/pattern-directionicon-arrow.png");
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .patt-circ.e {
+            -webkit-transform: rotate(0);
+            transform: rotate(0);
+        }
+
+        .patt-circ.s-e {
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .patt-circ.s {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+
+        .patt-circ.s-w {
+            -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+        }
+
+        .patt-circ.w {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        .patt-circ.n-w {
+            -webkit-transform: rotate(225deg);
+            transform: rotate(225deg);
+        }
+
+        .patt-circ.n {
+            -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+        }
+
+        .patt-circ.n-e {
+            -webkit-transform: rotate(315deg);
+            transform: rotate(315deg);
+        }
+    </style>
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row eq-height-row">
+            <div class="col-md-5 col-sm-5 hidden-xs left-col eq-height-col">
+                <div class="left-col-content login-header">
+                    <div style="margin-top: 50%;">
+                        <a href="./.html">
+                            Hospitality 360
+
+                        </a>
+                        <br>
+                        <small>Système de gestion de stock et de cashflow</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 col-sm-7 col-xs-12 right-col eq-height-col">
+                <div class="row">
+                    <div class="col-md-3 col-xs-4" style="text-align: left;">
+                        <select class="form-control input-sm" id="change_lang" style="margin: 10px;">
+                            <option value="en">
+                                English
+                            </option>
+                            <option value="fr" selected="">
+                                French - Français
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-9 col-xs-8" style="text-align: right;padding-top: 10px;">
+                        <!-- Register Url -->
+                    </div>
+
+                    <div class="login-form col-md-12 col-xs-12 right-col-content">
+                        <p class="form-header text-white">S'identifier</p>
+                        <form method="POST" action="http://h360.test/api/offline/login" id="login-form">
+                            <input type="hidden" name="_token" value="IffFuMSioWiezmGVFRljK5FhlG8NXhCmb62E9Tge">
+                            <div class="form-group has-feedback ">
+                                <input id="username" type="text" class="form-control" name="username" value="h360"
+                                    required="" autofocus="" placeholder="Nom d'utilisateur">
+                                <span class="fa fa-user form-control-feedback"></span>
+                            </div>
+                            <div class="form-group has-feedback ">
+                                <input id="password" type="password" class="form-control" name="password" value="34538"
+                                    required="" placeholder="Mot de passe">
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            </div>
+                            <div class="form-group" style="display: none;">
+                                <div class="checkbox icheck">
+                                    <label>
+                                        <input type="checkbox" name="remember"> Souviens-toi de moi </label>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-flat btn-login">S'identifier</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+
+        //je verifie si il a deja été connecté
+        var APP=JSON.parse(localStorage.getItem('APP'));
+        console.log('APP', APP);
+        if(APP != undefined && APP.BUSINESS_ID != undefined && APP.BUSINESS_ID != undefined){
+            window.location="pos.html";
+        }
+        
+        base_path = "http://h360.test";
+        //used for push notification
+        APP = {};
+        APP.PUSHER_APP_KEY = '';
+        APP.PUSHER_APP_CLUSTER = '';
+        APP.INVOICE_SCHEME_SEPARATOR = '-';
+        //variable from app service provider
+        APP.PUSHER_ENABLED = '';
+        APP.USER_ID = '';
+    </script>
+
+    <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js?v=$asset_v"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js?v=$asset_v"></script>
+<![endif]-->
+    <script src="./resources/scripts/vendor.js?v=511"></script>
+
+    <script src="./resources/scripts/fr.js?v=511"></script>
+
+    <script>
+        Dropzone.autoDiscover = false;
+        moment.tz.setDefault('');
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+        });
+
+        var financial_year = {
+            start: moment(''),
+            end: moment(''),
+        }
+
+        var datepicker_date_format = "mm/dd/yyyy";
+        var moment_date_format = "MM/DD/YYYY";
+        var moment_time_format = "HH:mm";
+
+        var app_locale = "fr";
+
+        var non_utf8_languages = [
+            "ar",
+            "hi",
+            "ps",
+        ];
+
+        var __default_datatable_page_entries = "25";
+
+        var __new_notification_count_interval = "60000";
+    </script>
+
+    <script src="./resources/fr.js?v=511"></script>
+
+    <script src="./resources/functions.js?v=511"></script>
+    <script src="./resources/common.js?v=511"></script>
+    <script src="./resources/app.js?v=511"></script>
+    <script src="./resources/help-tour.js?v=511"></script>
+    <script src="./resources/documents_and_note.js?v=511"></script>
+
+    <!-- TODO -->
+
+
+    <script type="text/javascript">
+        //window.location="pos.html";
+
+
+
+        $(document).on("ifChecked", ".allow_login", function () {
+            $("#" + $(this).attr("data-loginDiv")).removeClass("hide");
+        })
+        $(document).on("ifUnchecked", ".allow_login", function () {
+            $("#" + $(this).attr("data-loginDiv")).addClass("hide");
+        })
+        $(document).on("contactFormvalidationAdded", "#contact_add_form", function (e) {
+
+            $("#contact_add_form .input-icheck").iCheck({
+                checkboxClass: "icheckbox_square-blue"
+            });
+
+            if ($("#username0").length) {
+                $("#username0").rules("add", {
+                    minlength: 5,
+                    remote: {
+                        url: "/business/register/check-username",
+                        type: "post",
+                        data: {
+                            username: function () {
+                                return $("#username0").val();
+                            }
+                        }
+                    },
+                    messages: {
+                        remote: "Invalid username or User already exist"
+                    }
+                });
+            }
+
+            if ($("#username1").length) {
+                $("#username1").rules("add", {
+                    minlength: 5,
+                    remote: {
+                        url: "/business/register/check-username",
+                        type: "post",
+                        data: {
+                            username: function () {
+                                return $("#username1").val();
+                            }
+                        }
+                    },
+                    messages: {
+                        remote: "Invalid username or User already exist"
+                    }
+                });
+            }
+
+            if ($("#username2").length) {
+                $("#username2").rules("add", {
+                    minlength: 5,
+                    remote: {
+                        url: "/business/register/check-username",
+                        type: "post",
+                        data: {
+                            username: function () {
+                                return $("#username2").val();
+                            }
+                        }
+                    },
+                    messages: {
+                        remote: "Invalid username or User already exist"
+                    }
+                });
+            }
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#change_lang').change(function () {
+                window.location = "http://h360.test/login?lang=" + $(this).val();
+            });
+
+            $('a.demo-login').click(function (e) {
+                e.preventDefault();
+                $('#username').val($(this).data('admin'));
+                $('#password').val("");
+                $('form#login-form').submit();
+            });
+        })
+    </script>
+
+    <div class="modal fade" id="clock_in_clock_out_modal" tabindex="-1" role="dialog"
+        aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <form method="POST" action="http://h360.test/hrm/clock-in-clock-out" accept-charset="UTF-8"
+                    id="clock_in_clock_out_form"><input name="_token" type="hidden"
+                        value="IffFuMSioWiezmGVFRljK5FhlG8NXhCmb62E9Tge">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <h4 class="modal-title"><span id="clock_in_text">Horloge dans</span>
+                            <span id="clock_out_text">Sortie d'horloge</span>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <input type="hidden" name="type" id="type">
+                            <div class="form-group col-md-12">
+                                <strong>Adresse IP: ::1</strong>
+                            </div>
+                            <div class="form-group col-md-12 clock_in_note ">
+                                <label for="clock_in_note">Horloge en note:</label>
+                                <textarea class="form-control" placeholder="Horloge en note" rows="3"
+                                    name="clock_in_note" cols="50" id="clock_in_note"></textarea>
+                            </div>
+                            <div class="form-group col-md-12 clock_out_note  hide ">
+                                <label for="clock_out_note">Note de sortie:</label>
+                                <textarea class="form-control" placeholder="Note de sortie" rows="3"
+                                    name="clock_out_note" cols="50" id="clock_out_note"></textarea>
+                            </div>
+                            <input type="hidden" name="clock_in_out_location" id="clock_in_out_location" value="">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Soumettre</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+
+                </form>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.fn.dataTable.ext.errMode = 'throw';
+        });
+        $(document).on('submit', 'form#login-form', function (e) {
+            //alert(5445566);
+            e.preventDefault();
+            $(this).find('button[type="submit"]').attr('disabled', true);
+            var data = $(this).serialize();
+            console.log('data', data);
+
+            alert($(this).attr('action'));
+
+            $.ajax({
+                method: $(this).attr('method'),
+                url: $(this).attr('action'),
+                //url: "http://h360.test/api/user",
+                dataType: 'application/json',
+                crossDomain: true,
+                data: data,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*' ,
+                },
+                success: function (result) {
+                    alert(11111);
+                    if (result.success == true) {
+
+                        swal({
+                            title: result.msg,
+                            content: shift_details,
+                            icon: 'success'
+                        }).then(function (params) {
+                            window.location="pos.html";
+                        });
+
+                        //on n'enregistre les informations dans le localhost
+                        APP = {};
+                        APP.PUSHER_APP_KEY = '';
+                        APP.PUSHER_APP_CLUSTER = '';
+                        APP.INVOICE_SCHEME_SEPARATOR = '-';
+                        //variable from app service provider
+                        APP.PUSHER_ENABLED = '';
+                        APP.BUSINESS_ID = result.data.business_id;
+                        APP.USER_ID = result.data.id;
+                        
+                        localStorage.setItem('APP', JSON.stringify(APP));
+
+                        const doc_id = `h360_${APP.BUSINESS_ID}_${APP.USER_ID}`;
+                        const doc_obj = `h360_${APP.BUSINESS_ID}`;
+                        var doc_contacts = `h360_${APP.BUSINESS_ID}_${APP.USER_ID}`;
+
+
+                    } else {
+                        var shift_details = document.createElement("p");
+                        if (result.shift_details) {
+                            shift_details.innerHTML = result.shift_details;
+                        }
+
+                        swal({
+                            title: result.msg,
+                            content: shift_details,
+                            icon: 'error'
+                        })
+                    }
+                    $('#clock_in_clock_out_form')[0].reset();
+                    $('#clock_in_clock_out_form').find('button[type="submit"]').removeAttr('disabled');
+                },
+                error:function (error) {
+                    console.log("rrrrttttyyy",error);
+                    alert( JSON.parse(error.responseText));
+
+                    swal({
+                            title: error.msg,
+                            content: "",
+                            icon: 'error'
+                        });
+
+                    alert(123131231131);
+                }
+            });
+        });
+        error
+    </script>
+
+    <!-- Scripts -->
+    <script src="./resources/scripts/login.js?v=511"></script>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.select2_register').select2();
+
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

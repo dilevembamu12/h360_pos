@@ -1,0 +1,647 @@
+<html lang="fr" dir="ltr">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+	<!-- CSRF Token -->
+	<meta name="csrf-token" content="Gq5mQKe8h6H7EpQALoSs3yIh4AcYYhrSIRqbujFg">
+
+	<title>H360 POS LITE - </title>
+
+
+
+
+
+	<link rel="stylesheet" href="./resources/stylesheets/vendor.css?v=511">
+	<script src="./resources/scripts/sweetalert2@11"></script>
+
+	<script src="pouch/js/pouchdb.min.js"></script>
+	<script src="./resources/scripts/vendor.js?v=511"></script>
+	<script src="./resources/scripts/fr.js?v=511"></script>
+
+
+	<!-- include module css -->
+
+	<!-- app css -->
+	<link rel="stylesheet" href="./resources/stylesheets/app.css?v=511">
+
+	<style type="text/css">
+		.content {
+			padding-bottom: 0px !important;
+		}
+	</style>
+	<style type="text/css">
+		/*
+	* Pattern lock css
+	* Pattern direction
+	* http://ignitersworld.com/lab/patternLock.html
+	*/
+		.patt-wrap {
+			z-index: 10;
+		}
+
+		.patt-circ.hovered {
+			background-color: #cde2f2;
+			border: none;
+		}
+
+		.patt-circ.hovered .patt-dots {
+			display: none;
+		}
+
+		.patt-circ.dir {
+			background-image: url("./resources/images/pattern-directionicon-arrow.png");
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+
+		.patt-circ.e {
+			-webkit-transform: rotate(0);
+			transform: rotate(0);
+		}
+
+		.patt-circ.s-e {
+			-webkit-transform: rotate(45deg);
+			transform: rotate(45deg);
+		}
+
+		.patt-circ.s {
+			-webkit-transform: rotate(90deg);
+			transform: rotate(90deg);
+		}
+
+		.patt-circ.s-w {
+			-webkit-transform: rotate(135deg);
+			transform: rotate(135deg);
+		}
+
+		.patt-circ.w {
+			-webkit-transform: rotate(180deg);
+			transform: rotate(180deg);
+		}
+
+		.patt-circ.n-w {
+			-webkit-transform: rotate(225deg);
+			transform: rotate(225deg);
+		}
+
+		.patt-circ.n {
+			-webkit-transform: rotate(270deg);
+			transform: rotate(270deg);
+		}
+
+		.patt-circ.n-e {
+			-webkit-transform: rotate(315deg);
+			transform: rotate(315deg);
+		}
+	</style>
+
+	<!-- include module css -->
+
+</head>
+
+<body class=" hold-transition lockscreen ">
+	<div id="pos_html"></div>
+
+	<script type="text/javascript">
+		base_path = ".";
+		//used for push notification
+		APP = {};
+		APP.PUSHER_APP_KEY = '2d3e724c9237a1579a4a';
+		APP.PUSHER_APP_CLUSTER = '';
+		APP.INVOICE_SCHEME_SEPARATOR = '-';
+		//variable from app service provider
+		APP.PUSHER_ENABLED = '';
+		APP.USER_ID = "1";
+	</script>
+	<script>
+		Dropzone.autoDiscover = false;
+		moment.tz.setDefault('Africa/Kinshasa');
+		$(document).ready(function () {
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+
+			$.fn.dataTable.ext.errMode = 'throw';
+		});
+
+		var financial_year = {
+			start: moment('2024-01-01'),
+			end: moment('2024-12-31'),
+		}
+
+		var datepicker_date_format = "dd/mm/yyyy";
+		var moment_date_format = "DD/MM/YYYY";
+		var moment_time_format = "HH:mm";
+
+		var app_locale = "fr";
+
+		var non_utf8_languages = [
+			"ar",
+			"hi",
+			"ps",
+		];
+
+		var __default_datatable_page_entries = "25";
+
+		var __new_notification_count_interval = "60000";
+	</script>
+	<script>
+
+
+		function loadJS(FILE_URL, other_files = [], async = true, __function = null) {
+			return new Promise(function (resolve, reject) {
+				let scriptEle = document.createElement("script");
+
+				scriptEle.setAttribute("src", FILE_URL);
+				scriptEle.setAttribute("type", "text/javascript");
+				scriptEle.setAttribute("async", async);
+
+				document.body.appendChild(scriptEle);
+
+				// success event 
+				scriptEle.addEventListener("load", () => {
+					if (Object.keys(other_files).length > 0) {
+						other_files.forEach(function (value, index) {
+							if (Object.keys(other_files).length == index + 1) {
+								loadJS(value.url, [], value.sync).then(function (contents) {
+									resolve(true);
+								});
+							} else {
+								loadJS(value.url, [], value.sync);
+								resolve(true);
+							}
+
+						});
+					} else {
+						resolve(true);
+					}
+
+				});
+				// error event
+				scriptEle.addEventListener("error", (ev) => {
+					console.log("Error on loading file", ev);
+				});
+			});
+
+
+		}
+	</script>
+	<script>
+		var READY = 0;
+		const doc_id = "h360_4_5";
+		const doc_obj = "h360_4";
+		var doc_contacts = "h360_4_5";
+
+		DATA = {};
+		const db = new PouchDB(doc_obj);
+		//const db = new PouchDB('http://admin:admin@localhost:5984/h360_1');
+
+		const remoteDB = new PouchDB('http://admin:admin@localhost:5984/' + doc_obj);
+
+		var other_files = [];
+		other_files.push({ "url": "pouch/js/pouchdb_pos.js", "sync": false });
+		loadJS("pouch/js/serverfaker.js", other_files, false).then(function (contents) {
+			var other_files = [];
+			other_files.push({ "url": "./resources/scripts/fr.js?v=511", "sync": false });
+			other_files.push({ "url": "./resources/scripts/functions.js?v=511", "sync": false });
+			other_files.push({ "url": "./resources/scripts/common.js?v=511", "sync": false });
+			other_files.push({ "url": "./resources/scripts/app.js?v=511", "sync": false });
+			other_files.push({ "url": "./resources/scripts/help-tour.js?v=511", "sync": false });
+			other_files.push({ "url": "./resources/scripts/documents_and_note.js?v=511", "sync": false });
+			loadJS("pouch/js/pos_html.js", other_files, false);
+
+			//<!-- TODO -->
+			$(document).on("ifChecked", ".allow_login", function () {
+				$("#" + $(this).attr("data-loginDiv")).removeClass("hide");
+			})
+			$(document).on("ifUnchecked", ".allow_login", function () {
+				$("#" + $(this).attr("data-loginDiv")).addClass("hide");
+			})
+			$(document).on("contactFormvalidationAdded", "#contact_add_form", function (e) {
+
+				$("#contact_add_form .input-icheck").iCheck({
+					checkboxClass: "icheckbox_square-blue"
+				});
+
+				if ($("#username0").length) {
+					$("#username0").rules("add", {
+						minlength: 5,
+						remote: {
+							url: "/business/register/check-username",
+							type: "post",
+							data: {
+								username: function () {
+									return $("#username0").val();
+								}
+							}
+						},
+						messages: {
+							remote: "Invalid username or User already exist"
+						}
+					});
+				}
+
+				if ($("#username1").length) {
+					$("#username1").rules("add", {
+						minlength: 5,
+						remote: {
+							url: "/business/register/check-username",
+							type: "post",
+							data: {
+								username: function () {
+									return $("#username1").val();
+								}
+							}
+						},
+						messages: {
+							remote: "Invalid username or User already exist"
+						}
+					});
+				}
+
+				if ($("#username2").length) {
+					$("#username2").rules("add", {
+						minlength: 5,
+						remote: {
+							url: "/business/register/check-username",
+							type: "post",
+							data: {
+								username: function () {
+									return $("#username2").val();
+								}
+							}
+						},
+						messages: {
+							remote: "Invalid username or User already exist"
+						}
+					});
+				}
+			});
+
+
+
+			//charger lautres fichiers js
+			var other_files = [];
+			other_files.push({ "url": "./resources/scripts/printer.js?v=511", "sync": false });
+			other_files.push({ "url": "./resources/scripts/product.js?v=511", "sync": false });
+			other_files.push({ "url": "./resources/scripts/opening_stock.js?v=511", "sync": false });
+			//<!-- Call restaurant module if defined -->
+			other_files.push({ "url": "./resources/scripts/restaurant.js?v=511", "sync": false });
+			loadJS("./resources/scripts/pos.js?v=511", other_files, false).then(function (params) {
+				$(document).ready(function () {
+					//shortcut for express checkout
+					Mousetrap.bind('shift+e', function (e) {
+						e.preventDefault();
+						$('button.pos-express-finalize[data-pay_method="cash"]').trigger('click');
+					});
+
+					//shortcut for cancel checkout
+					Mousetrap.bind('shift+c', function (e) {
+						e.preventDefault();
+						$('#pos-cancel').trigger('click');
+					});
+
+					//shortcut for draft checkout
+					Mousetrap.bind('shift+d', function (e) {
+						e.preventDefault();
+						$('#pos-draft').trigger('click');
+					});
+
+					//shortcut for draft pay & checkout
+					Mousetrap.bind('shift+p', function (e) {
+						e.preventDefault();
+						$('#pos-finalize').trigger('click');
+					});
+
+					//shortcut for edit discount
+					Mousetrap.bind('shift+i', function (e) {
+						e.preventDefault();
+						$('#pos-edit-discount').trigger('click');
+					});
+
+					//shortcut for edit tax
+					Mousetrap.bind('shift+t', function (e) {
+						e.preventDefault();
+						$('#pos-edit-tax').trigger('click');
+					});
+
+					//shortcut for add payment row
+					var payment_modal = document.querySelector('#modal_payment');
+					Mousetrap.bind('shift+r', function (e, combo) {
+						if ($('#modal_payment').is(':visible')) {
+							e.preventDefault();
+							$('#add-payment-row').trigger('click');
+						}
+					});
+
+					//shortcut for add finalize payment
+					var payment_modal = document.querySelector('#modal_payment');
+					Mousetrap(payment_modal).bind('shift+f', function (e, combo) {
+						if ($('#modal_payment').is(':visible')) {
+							e.preventDefault();
+							$('#pos-save').trigger('click');
+						}
+					});
+
+					//Shortcuts to go recent product quantity
+					shortcut_length_prev = 0;
+					shortcut_position_now = null;
+
+					Mousetrap.bind('f2', function (e, combo) {
+						var length_now = $('table#pos_table tr').length;
+
+						if (length_now != shortcut_length_prev) {
+							shortcut_length_prev = length_now;
+							shortcut_position_now = length_now;
+						} else {
+							shortcut_position_now = shortcut_position_now - 1;
+						}
+
+						var last_qty_field = $('table#pos_table tr').eq(shortcut_position_now - 1).contents().find('input.pos_quantity');
+						if (last_qty_field.length >= 1) {
+							last_qty_field.focus().select();
+						} else {
+							shortcut_position_now = length_now + 1;
+							Mousetrap.trigger('f2');
+						}
+					});
+
+					//On focus of quantity field go back to search when stop typing
+					var timeout = null;
+					$('table#pos_table').on('focus', 'input.pos_quantity', function () {
+						var that = this;
+
+						$(this).on('keyup', function (e) {
+
+							if (timeout !== null) {
+								clearTimeout(timeout);
+							}
+
+							var code = e.keyCode || e.which;
+							if (code != '9') {
+								timeout = setTimeout(function () {
+									$('input#search_product').focus().select();
+								}, 5000);
+							}
+						});
+					});
+
+					//shortcut to go to add new products
+					Mousetrap.bind('f4', function (e) {
+						$('input#search_product').focus().select();
+					});
+
+					//shortcut for weighing scale
+				});
+
+
+				$(document).ready(function () {
+					$('#essentials_dob').datepicker();
+					$('.clock_in_btn, .clock_out_btn').click(function () {
+						var type = $(this).data('type');
+						if (type == 'clock_in') {
+							$('#clock_in_clock_out_modal').find('#clock_in_text').removeClass('hide');
+							$('#clock_in_clock_out_modal').find('#clock_out_text').addClass('hide');
+							$('#clock_in_clock_out_modal').find('.clock_in_note').removeClass('hide');
+							$('#clock_in_clock_out_modal').find('.clock_out_note').addClass('hide');
+						} else if (type == 'clock_out') {
+							$('#clock_in_clock_out_modal').find('#clock_in_text').addClass('hide');
+							$('#clock_in_clock_out_modal').find('#clock_out_text').removeClass('hide');
+							$('#clock_in_clock_out_modal').find('.clock_in_note').addClass('hide');
+							$('#clock_in_clock_out_modal').find('.clock_out_note').removeClass('hide');
+						}
+						$('#clock_in_clock_out_modal').find('input#type').val(type);
+
+						$('#clock_in_clock_out_modal').modal('show');
+					});
+				});
+
+				$(document).on('submit', 'form#clock_in_clock_out_form', function (e) {
+					e.preventDefault();
+					$(this).find('button[type="submit"]').attr('disabled', true);
+					var data = $(this).serialize();
+
+					$.ajax({
+						method: $(this).attr('method'),
+						url: $(this).attr('action'),
+						dataType: 'json',
+						data: data,
+						success: function (result) {
+							if (result.success == true) {
+								$('div#clock_in_clock_out_modal').modal('hide');
+
+								var shift_details = document.createElement("div");
+								if (result.current_shift) {
+									shift_details.innerHTML = result.current_shift;
+								}
+
+								swal({
+									title: result.msg,
+									content: shift_details,
+									icon: 'success'
+								});
+
+								if (typeof attendance_table !== 'undefined') {
+									attendance_table.ajax.reload();
+								}
+								if (result.type == 'clock_in') {
+									$('.clock_in_btn').addClass('hide');
+									$('.clock_out_btn').removeClass('hide');
+								} else if (result.type == 'clock_out') {
+									$('.clock_out_btn').addClass('hide');
+									$('.clock_in_btn').removeClass('hide');
+								}
+							} else {
+								var shift_details = document.createElement("p");
+								if (result.shift_details) {
+									shift_details.innerHTML = result.shift_details;
+								}
+
+								swal({
+									title: result.msg,
+									content: shift_details,
+									icon: 'error'
+								})
+							}
+							$('#clock_in_clock_out_form')[0].reset();
+							$('#clock_in_clock_out_form').find('button[type="submit"]').removeAttr('disabled');
+						},
+					});
+				});
+
+				$(document).on('click', '#get_current_location', function () {
+					getFullAddress();
+				});
+
+				function getFullAddress() {
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(
+							(position) => {
+								var latitude = position.coords.latitude;
+								var longitude = position.coords.longitude;
+
+								$.ajax({
+									url: '/user-location/' + latitude + ',' + longitude,
+									dataType: 'json',
+									success: function (result) {
+										if (typeof result.address !== 'undefined') {
+
+											$("input#clock_in_out_location").val(result.address);
+											$("span.clock_in_out_location").text(result.address);
+											$("div.ask_location").hide();
+										} else if (typeof result.error_message !== 'undefined') {
+											console.log(result.error_message);
+										}
+									}
+								});
+
+							},
+							() => {
+								$("div.ask_location").show();
+								$("span.location_required").text("La localisation est obligatoire, vous devez activer la localisation")
+								console.log("Error: The Geolocation service failed.");
+							}
+						);
+					} else {
+						$("div.ask_location").show();
+						$("span.location_required").text("La localisation est obligatoire, vous devez activer la localisation")
+						// Browser doesn't support Geolocation
+						console.log("Browser doesn't support Geolocation");
+					}
+				}
+
+
+
+				$(document).ready(function () {
+					var locale = "fr";
+					var isRTL = false;
+					$('#calendar').fullCalendar('option', {
+						locale: locale,
+						isRTL: isRTL
+					});
+				});
+
+
+
+
+
+
+				$('#task_modal').on('shown.bs.modal', function () {
+					$('form#task_form .datepicker').datetimepicker({
+						format: moment_date_format + ' ' + moment_time_format,
+						ignoreReadonly: true,
+					});
+					$('form#task_form .select2').select2({ dropdownParent: $(this) });
+
+					tinymce.init({
+						selector: 'textarea#to_do_description',
+					});
+
+					if ($('#media_upload').length) {
+						$(this).find("div#media_upload").dropzone({
+							url: $('#media_upload_url').val(),
+							paramName: 'file',
+							uploadMultiple: true,
+							autoProcessQueue: false,
+							addRemoveLinks: true,
+							params: {
+								'model_id': $('#model_id').val(),
+								'model_type': $('#model_type').val(),
+								'model_media_type': $('#model_media_type').val()
+							},
+							headers: {
+								'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+							},
+							success: function (file, response) {
+								if (response.success) {
+									toastr.success(response.msg);
+									$("#task_modal").modal('hide');
+								} else {
+									toastr.error(response.msg);
+								}
+							},
+						});
+					}
+
+					//form validation
+					$("form#task_form").validate();
+				});
+
+				$('#task_modal').on('hide.bs.modal', function () {
+					tinymce.remove("textarea#to_do_description");
+				});
+
+				console.log('bbbbbbbbb', DATA);
+
+				//form submit
+				$(document).on('submit', 'form#task_form', function (e) {
+					e.preventDefault();
+					var url = $(this).attr("action");
+					var method = $(this).attr("method");
+					var data = $("form#task_form").serialize();
+					var ladda = Ladda.create(document.querySelector('.ladda-button'));
+					ladda.start();
+					$.ajax({
+						method: method,
+						url: url,
+						data: data,
+						dataType: "json",
+						success: function (result) {
+							ladda.stop();
+							if (result.success == true) {
+								var myDropzone = Dropzone.forElement("#media_upload");
+
+								if (typeof result.todo_id !== 'undefined') {
+									myDropzone.options.params.model_id = result.todo_id;
+								}
+
+								myDropzone.processQueue();
+
+								if (typeof task_table !== 'undefined') {
+									task_table.ajax.reload();
+								}
+
+								if ($('#task_modal').length) {
+									$('#task_modal').modal('hide');
+								}
+
+								if ($('#calendar').length) {
+									$('#calendar').fullCalendar('refetchEvents');
+								}
+							} else {
+								toastr.error(result.msg);
+							}
+						}
+					});
+				});
+
+			});
+
+
+		});
+
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<div id="serverfaker_get-product-suggestion" style="width: 100%;">
+
+</div>
+
+<script>
+    function serverfaker_get_product_suggestion() {
+        return new Promise(function (resolve, reject) {
+
+
+            db.get(doc_id).then(function (doc) {
+                var data_string = '';
+                console.log("j====>", doc);
+
+                //je recupere le location id passé en argument
+                location_id = 1;
+                businesslocations = doc.businesslocations;
+                businesslocations.forEach(function (row) {
+                    if (row.id == location_id) {
+                        console.log(row.products);
+                        Object.values(row.products).forEach(function (product) {
+                            console.log(product);
+                            data_string+="<div class=\"col-md-3 col-xs-4 product_list no-print\" >"
+                                +"<div class=\"product_box\" data-variation_id=\""+product.variation_id+"\" title=\""+product.product_actual_name+"("+product.sub_sku+")\">"
+
+                                    +"<div class=\"image-container\" style=\"background-image: url(http://h360.test/img/default.png);background-repeat: no-repeat; background-position: center;background-size: contain;\"></div>"
+
+                                    +"<div class=\"text_div\">"
+                                        +"<small class=\"text text-muted\">"+product.product_actual_name+"</small>"
+
+                                        +"<small class=\"text-muted\">("+product.sub_sku+")</small>"
+                                    +"</div>"
+
+                                +"</div>"
+                            +"</div>";
+                        });
+                    }
+                });
+                // console.log(formattedList);
+                resolve(data_string);
+            }).catch(function (err) {
+                console.log(err);
+            });
+        });
+    }
+
+    window.onload = function () {
+        db.sync(remoteDB, { live: true, retry: true }
+        ).on('change', function (change) {
+            return serverfaker_get_product_suggestion().then(function (contents) {
+                document.getElementById('serverfaker_get-product-suggestion').innerHTML = contents;
+            })
+        }).on('active', function (info) {
+            return serverfaker_get_product_suggestion().then(function (contents) {
+                document.getElementById('serverfaker_get-product-suggestion').innerHTML = contents;
+            });
+        });
+
+        serverfaker_get_product_suggestion().then(function (contents) {
+            document.getElementById('serverfaker_get-product-suggestion').innerHTML = contents;
+        });
+        console.log("serverfaker_get_product_suggestion loaded");
+
+
+
+        const data_string = `<div class="col-md-3 col-xs-4 product_list no-print">
+        <div class="product_box" data-variation_id="92" title="Ajout d&#039;article dans un CMS  (0090) ">
+    
+            <div class="image-container" style="background-image: url(
+                                            http://h360.test/img/default.png
+                                    );
+            background-repeat: no-repeat; background-position: center;
+            background-size: contain;">
+    
+            </div>
+    
+            <div class="text_div">
+                <small class="text text-muted">Ajout d&#039;article dans un CMS
+                </small>
+    
+                <small class="text-muted">
+                    (0090)
+                </small>
+            </div>
+    
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-4 product_list no-print">
+        <div class="product_box" data-variation_id="1837" title="qqsd  (1788) ">
+    
+            <div class="image-container" style="background-image: url(
+                                            http://h360.test/img/default.png
+                                    );
+            background-repeat: no-repeat; background-position: center;
+            background-size: contain;">
+    
+            </div>
+    
+            <div class="text_div">
+                <small class="text text-muted">qqsd
+                </small>
+    
+                <small class="text-muted">
+                    (1788)
+                </small>
+            </div>
+    
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-4 product_list no-print">
+        <div class="product_box" data-variation_id="665" title="TV PLASMA 48&#039;&#039;  (0619) ">
+    
+            <div class="image-container" style="background-image: url(
+                                            http://h360.test/img/default.png
+                                    );
+            background-repeat: no-repeat; background-position: center;
+            background-size: contain;">
+    
+            </div>
+    
+            <div class="text_div">
+                <small class="text text-muted">TV PLASMA 48&#039;&#039;
+                </small>
+    
+                <small class="text-muted">
+                    (0619)
+                </small>
+            </div>
+    
+        </div>
+    </div>`;
+        //document.getElementsByClassName('papap').innerHTML=1233;
+    }
+</script>

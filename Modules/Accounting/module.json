@@ -1,0 +1,14 @@
+{
+    "name": "Accounting",
+    "alias": "accounting",
+    "description": "Accounting Direct Install by TioGazpasho",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Accounting\\Providers\\AccountingServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
