@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<link rel="icon" sizes="144x144" href="../../../../assets/svg/log_sq-144.jpg">
+  
+<!-- Mirrored from scanapp.org/blog/2022/11/01/using-html5-qrcode-with-only-camera-or-file-options.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Apr 2024 23:32:19 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <link href="https://minhazav.dev/" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+    <meta charset="utf-8">
+    <meta property="og:type" content="website">
+
+    
+    <title>Using Html5-qrcode with only Camera or File options</title>
+    <meta name="title" content="Using Html5-qrcode with only Camera or File options">
+    <meta property="twitter:title" content="Using Html5-qrcode with only Camera or File options">
+    <meta property="og:title" content="Using Html5-qrcode with only Camera or File options">
+    <meta property="og:url" content="using-html5-qrcode-with-only-camera-or-file-options.html">
+    <meta property="twitter:url" content="using-html5-qrcode-with-only-camera-or-file-options.html">
+    <meta property="twitter:card" content="summary_large_image">
+
+    <!-- description -->
+    
+    <meta name="description" content="In this article, I'll share how to use different scan types -  camera based and file based, depending upon the scenario.">
+    <meta property="og:description" content="In this article, I'll share how to use different scan types -  camera based and file based, depending upon the scenario.">
+    <meta property="twitter:description" content="In this article, I'll share how to use different scan types -  camera based and file based, depending upon the scenario.">
+    
+    
+    <meta property="twitter:image" content="/assets/images/blog/post4/default_config.webp">
+    <meta property="og:image" content="/assets/images/blog/post4/default_config.webp">
+    
+    
+
+    <!-- TODO: Add canonical link -->
+
+    <link rel="preload" href="../../../../assets/css/poole.min.css" as="style">
+    <link rel="stylesheet" href="../../../../assets/css/poole.min.css">
+
+    <link rel="preload" href="../../../../assets/css/syntax.min.css" as="style">
+    <link rel="stylesheet" href="../../../../assets/css/syntax.min.css">
+
+    <link rel="preload" href="../../../../assets/css/lanyon.min.css" as="style">
+    <link rel="stylesheet" href="../../../../assets/css/lanyon.min.css">
+
+    <!-- Inlined from
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+    -->
+    <style type="text/css">
+/* cyrillic-ext */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79D0-ExcOPIDUg-g.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  font-display: swap;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79D0aExcOPIDUg-g.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  font-display: swap;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79D0yExcOPIDUg-g.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79D0KExcOPIDU.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: swap;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_rC1cgT9rct48Q.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  font-display: swap;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_rm1cgT9rct48Q.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  font-display: swap;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_rO1cgT9rct48Q.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-display: swap;
+}
+/* latin */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_r21cgT9rcs.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: swap;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFbzr-_dSb_nco.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  font-display: swap;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFSzr-_dSb_nco.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  font-display: swap;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFYzr-_dSb_nco.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-display: swap;
+}
+/* latin */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFWzr-_dSb_.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: swap;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRSQgYoZZY2vCFuvAnt66qfVyvVp8NAyIw.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  font-display: swap;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRSQgYoZZY2vCFuvAnt66qWVyvVp8NAyIw.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  font-display: swap;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRSQgYoZZY2vCFuvAnt66qcVyvVp8NAyIw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-display: swap;
+}
+/* latin */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRSQgYoZZY2vCFuvAnt66qSVyvVp8NA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: swap;
+}
+
+</style>
+
+
+    <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://scanapp.org/public/apple-touch-icon-precomposed.png"> -->
+    <!-- <link rel="shortcut icon" href="https://scanapp.org/public/favicon.ico"> -->
+
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../atom.xml">
+</head>
+  <body>
+    <div class="wrap">
+      <div class="masthead">
+        <div class="header-links">         
+    <a href="../../../../index.html">ScanApp - Home</a>
+    <a href="../../../index.html">Blog</a>
+    <a href="../../../../support/index.html">Support</a>
+    <a href="https://github.com/scanapp-org">GitHub project</a>
+</div>
+<style type="text/css">
+.header-links {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 13pt;
+}
+.header-links a {
+    margin: 0px 10px 0px 10px;
+    color: #303030;
+}
+.header-links a {
+    margin: 0px 10px 0px 10px;
+    color: #303030;
+}
+</style>
+        <div class="container">
+          <h3 class="masthead-title">
+            Blog by <a href="../../../../index.html" title="Home">ScanApp</a>
+            <small>QR Code Scanner - Scan QR Code with webcam or files</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Using Html5-qrcode with only Camera or File options</h1>
+  <span class="post-date">
+    01 Nov 2022
+    | Authored by <a href="https://mohsinaav.github.io/">Mohsina</a>
+    
+    | Editted by <a href="https://minhazav.dev/">Minhaz</a>
+    
+  </span> 
+  <p><a href="https://github.com/mebjas/html5-qrcode">Html5-qrcode</a> is a light-weight library to easily integrate QR code scanning functionality 
+to any web application. You can find out more about the project and it’s implementation details on the project page on <a href="https://github.com/mebjas/html5-qrcode">Github</a>.</p>
+
+<p><a href="../../../../index.html">ScanApp</a> is the end to end implementation of the library by the same author.</p>
+
+<p>By default, the library allows two type of scanning options</p>
+
+<ul>
+  <li>Camera based scan</li>
+  <li>File based scan (Allows users to select any file on their device)</li>
+</ul>
+
+<div style="text-align: center; margin-bottom: 20px">
+    <div style="display: flex; justify-content: center;">
+        <img src="../../../../assets/images/blog/post4/default_config.png" alt="Screenshot of default config" />
+    </div>
+    <i>Screenshot of the app with default configuraion, before my pull request.</i>
+</div>
+
+<p>Earlier, there was no option to change this default configuration i.e. developers who wanted to use the library had to show both camera and file scan options even if their use-case was limited to one of them. There were feature request to open this up as a configuration.</p>
+
+<h2 id="the-feature-request">The feature request</h2>
+<p><a href="https://github.com/mebjas/html5-qrcode/issues/405">This feature request</a> was raised seeking the support for controlling what all scan type should be rendered when using the library.</p>
+
+<blockquote>
+  <p>This seemed like an impactful item for me to start contributing to this project.</p>
+</blockquote>
+
+<h2 id="i-added-a-configuration-in-html5qrcodescanner-to-support-this">I added a configuration in <code class="language-plaintext highlighter-rouge">Html5QrcodeScanner</code> to support this</h2>
+<p>I was able to add a new configuration option, such that the user can</p>
+
+<ul>
+  <li>Either use only Camera based scan</li>
+  <li>Or only File based scan</li>
+  <li>Or use both of them, this happens to be the default option as well.</li>
+</ul>
+
+<p>To configure the feature with <code class="language-plaintext highlighter-rouge">Html5QrcodeScanner</code>, one need to simply set <code class="language-plaintext highlighter-rouge">supportedScanTypes</code> 
+options like this.</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">html5QrcodeScanner</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Html5QrcodeScanner</span><span class="p">(</span>
+    <span class="dl">"</span><span class="s2">reader</span><span class="dl">"</span><span class="p">,</span> 
+    <span class="p">{</span> 
+        <span class="na">fps</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="na">qrbox</span><span class="p">:</span> <span class="nx">qrboxFunction</span><span class="p">,</span>
+        <span class="na">experimentalFeatures</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">useBarCodeDetectorIfSupported</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">},</span>
+        <span class="na">rememberLastUsedCamera</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">supportedScanTypes</span><span class="p">:</span> <span class="p">[</span>
+            <span class="nx">Html5QrcodeScanType</span><span class="p">.</span><span class="nx">SCAN_TYPE_FILE</span><span class="p">,</span> 
+            <span class="nx">Html5QrcodeScanType</span><span class="p">.</span><span class="nx">SCAN_TYPE_CAMERA</span>
+        <span class="p">],</span>
+        <span class="na">aspectRatio</span><span class="p">:</span> <span class="mf">1.7777778</span>
+    <span class="p">});</span>
+</code></pre></div></div>
+
+<p><strong>Note that</strong></p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="nl">supportedScanTypes</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nx">Html5QrcodeScanType</span><span class="p">.</span><span class="nx">SCAN_TYPE_FILE</span><span class="p">,</span> 
+        <span class="nx">Html5QrcodeScanType</span><span class="p">.</span><span class="nx">SCAN_TYPE_CAMERA</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Is this the relevant configuration here. Here’s example of different scenarios.</p>
+
+<h3 id="1-user-only-needs-the-camera-based-scanning">[1] User only needs the camera based scanning.</h3>
+<p>In this case, set the <code class="language-plaintext highlighter-rouge">supportedScanTypes</code> value like this.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">supportedScanTypes</span><span class="p">:</span> <span class="p">[</span> <span class="nx">Html5QrcodeScanType</span><span class="p">.</span><span class="nx">SCAN_TYPE_CAMERA</span> <span class="p">],</span>
+</code></pre></div></div>
+
+<p>This will render the QR Scanner something like this</p>
+
+<div style="text-align: center; margin-bottom: 20px">
+    <div style="display: flex; justify-content: center;">
+        <img src="../../../../assets/images/blog/post4/camera_only.png" alt="Screenshot of camera only config" />
+    </div>
+    <i>Screenshot of app with camera only config.</i>
+</div>
+
+<h3 id="2-user-only-needs-the-file-based-scanning">[2] User only needs the file based scanning.</h3>
+<p>Here set the <code class="language-plaintext highlighter-rouge">supportedScanTypes</code> value like this.</p>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="nl">supportedScanTypes</span><span class="p">:</span> <span class="p">[</span><span class="nx">Html5QrcodeScanType</span><span class="p">.</span><span class="nx">SCAN_TYPE_FILE</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This will render the QR Scanner something like this</p>
+
+<div style="text-align: center; margin-bottom: 20px">
+    <div style="display: flex; justify-content: center;">
+        <img src="../../../../assets/images/blog/post4/file_only.png" alt="Screenshot of file only config" />
+    </div>
+    <i>Screenshot of app with file only config.</i>
+</div>
+
+<h3 id="3-user-wants-to-support-both-camera-and-file-based-option">[3] User wants to support both camera and file based option</h3>
+<blockquote>
+  <p>This is the default option! And unless you have specific need to disable one
+of the two, I recommend you to use this.</p>
+</blockquote>
+
+<p>If we don’t set any value for <code class="language-plaintext highlighter-rouge">supportedScanTypes</code>, the library will support
+both scanning types by default.</p>
+
+<h4 id="bonus-set-file-based-scanning-as-default-option-while-supporting-both">Bonus: Set file based scanning as default option while supporting both</h4>
+<p>A bonus addition to the feature was that -  the order of the config is also honoured by the library.
+If you want to support both file and camera based scanning options but want to define file based option as the default you can just configure <code class="language-plaintext highlighter-rouge">supportedScanTypes</code> like this</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="nl">supportedScanTypes</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nx">Html5QrcodeScanType</span><span class="p">.</span><span class="nx">SCAN_TYPE_FILE</span><span class="p">,</span> 
+        <span class="nx">Html5QrcodeScanType</span><span class="p">.</span><span class="nx">SCAN_TYPE_CAMERA</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This will render the QR Scanner something like this</p>
+
+<div style="text-align: center; margin-bottom: 20px">
+    <div style="display: flex; justify-content: center;">
+        <img src="../../../../assets/images/blog/post4/file_first.png" alt="Screenshot of file first config" />
+    </div>
+    <i>Screenshot of app with file first config.</i>
+</div>
+
+<blockquote>
+  <p>Otherwise, by default the library renders camera based option as the default one.</p>
+</blockquote>
+
+<h4 id="similarly-you-can-define-camera-based-option-to-be-the-default-one">Similarly, you can define camera based option to be the default one</h4>
+<blockquote>
+  <p>This happens to be the default scenario as well. So if you do nothing explicitly, library will behave in this fashion only.</p>
+</blockquote>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="nl">supportedScanTypes</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nx">Html5QrcodeScanType</span><span class="p">.</span><span class="nx">SCAN_TYPE_CAMERA</span><span class="p">,</span>
+        <span class="nx">Html5QrcodeScanType</span><span class="p">.</span><span class="nx">SCAN_TYPE_FILE</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="if-you-pass-arbitrary-values-library-will-throw-error">If you pass arbitrary values, library will throw error!</h3>
+<p>I suppose this goes without saying!</p>
+
+<blockquote>
+  <p>If you provide values other than the supported ones - the library will throw error.</p>
+</blockquote>
+
+<h2 id="summary">Summary</h2>
+
+<p>Developers can now modify the type of scanning method when using the <code class="language-plaintext highlighter-rouge">Html5QrcodeScanner</code> library.</p>
+
+<ul>
+  <li>Developers can choose to render only Camera support.</li>
+  <li>Developers can choose to render only File selection support.</li>
+  <li>Developers can choose to support both but select file or camera as the default option.</li>
+</ul>
+
+<p>If you have any feedbacks, please share in comment section. For any bug report or feature request please report it to the <a href="https://github.com/mebjas/html5-qrcode">html5-qrcode library</a> directly.</p>
+
+</div>
+
+<!-- TODO(mebjas): Add social badges here -->
+
+<script src="../../../../../utteranc.es/client.js"
+  repo="scanapp-org/scanapp-org.github.io"
+  issue-term="url"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="../../../2023/03/22/the-evolution-of-barcodes-and-qr-codes.html">
+            The Evolution of Barcodes and QR Codes: How They Changed the Retail Industry
+            <small>22 Mar 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="../../../2023/03/04/why-should-you-support-html5-qrcode-by-sponsoring.html">
+            Why should you support html5-qrcode project by sponsoring
+            <small>04 Mar 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="../../10/30/using-flash-or-torch-with-html5-qrcode.html">
+            Using Flash or Torch with Html5-Qrcode
+            <small>30 Oct 2022</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <div style="text-align: center; margin: 20px">
+    &copy; 2024. All rights reserved - ScanApp.
+</div>
+    <script src='../../../../assets/js/blog.script.js'></script>
+  </body>
+
+<!-- Mirrored from scanapp.org/blog/2022/11/01/using-html5-qrcode-with-only-camera-or-file-options.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Apr 2024 23:32:21 GMT -->
+</html>

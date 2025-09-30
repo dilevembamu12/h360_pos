@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<link rel="icon" sizes="144x144" href="../../../../assets/svg/log_sq-144.jpg">
+  
+<!-- Mirrored from scanapp.org/blog/2022/01/09/setting-dynamic-qr-box-size-in-html5-qrcode.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Apr 2024 23:32:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <link href="https://minhazav.dev/" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+    <meta charset="utf-8">
+    <meta property="og:type" content="website">
+
+    
+    <title>Setting dynamic QR box size in Html5-qrcode</title>
+    <meta name="title" content="Setting dynamic QR box size in Html5-qrcode">
+    <meta property="twitter:title" content="Setting dynamic QR box size in Html5-qrcode">
+    <meta property="og:title" content="Setting dynamic QR box size in Html5-qrcode">
+    <meta property="og:url" content="setting-dynamic-qr-box-size-in-html5-qrcode.html">
+    <meta property="twitter:url" content="setting-dynamic-qr-box-size-in-html5-qrcode.html">
+    <meta property="twitter:card" content="summary_large_image">
+
+    <!-- description -->
+    
+    <meta name="description" content="<a href='https://github.com/mebjas/html5-qrcode'>mebjas/html5-qrcode</a> is a fairly used open source library for implementing QR Code or barcode scanner in a web application. Several developers have been using it under webview for android projects as well. This article explains how to set the dimensions of QR box dynamically based on video width or height">
+    <meta property="og:description" content="<a href='https://github.com/mebjas/html5-qrcode'>mebjas/html5-qrcode</a> is a fairly used open source library for implementing QR Code or barcode scanner in a web application. Several developers have been using it under webview for android projects as well. This article explains how to set the dimensions of QR box dynamically based on video width or height">
+    <meta property="twitter:description" content="<a href='https://github.com/mebjas/html5-qrcode'>mebjas/html5-qrcode</a> is a fairly used open source library for implementing QR Code or barcode scanner in a web application. Several developers have been using it under webview for android projects as well. This article explains how to set the dimensions of QR box dynamically based on video width or height">
+    
+    
+    <meta property="twitter:image" content="/assets/images/blog/post1/post1_theme_image.webp">
+    <meta property="og:image" content="/assets/images/blog/post1/post1_theme_image.webp">
+    
+    
+
+    <!-- TODO: Add canonical link -->
+
+    <link rel="preload" href="../../../../assets/css/poole.min.css" as="style">
+    <link rel="stylesheet" href="../../../../assets/css/poole.min.css">
+
+    <link rel="preload" href="../../../../assets/css/syntax.min.css" as="style">
+    <link rel="stylesheet" href="../../../../assets/css/syntax.min.css">
+
+    <link rel="preload" href="../../../../assets/css/lanyon.min.css" as="style">
+    <link rel="stylesheet" href="../../../../assets/css/lanyon.min.css">
+
+    <!-- Inlined from
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+    -->
+    <style type="text/css">
+/* cyrillic-ext */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79D0-ExcOPIDUg-g.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  font-display: swap;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79D0aExcOPIDUg-g.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  font-display: swap;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79D0yExcOPIDUg-g.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptsans/v17/jizaRExUiTo99u79D0KExcOPIDU.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: swap;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_rC1cgT9rct48Q.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  font-display: swap;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_rm1cgT9rct48Q.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  font-display: swap;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_rO1cgT9rct48Q.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-display: swap;
+}
+/* latin */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRTQgYoZZY2vCFuvAFT_r21cgT9rcs.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: swap;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFbzr-_dSb_nco.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  font-display: swap;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFSzr-_dSb_nco.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  font-display: swap;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFYzr-_dSb_nco.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-display: swap;
+}
+/* latin */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRVQgYoZZY2vCFuvAFWzr-_dSb_.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: swap;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRSQgYoZZY2vCFuvAnt66qfVyvVp8NAyIw.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  font-display: swap;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRSQgYoZZY2vCFuvAnt66qWVyvVp8NAyIw.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  font-display: swap;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRSQgYoZZY2vCFuvAnt66qcVyvVp8NAyIw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-display: swap;
+}
+/* latin */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/ptserif/v17/EJRSQgYoZZY2vCFuvAnt66qSVyvVp8NA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: swap;
+}
+
+</style>
+
+
+    <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://scanapp.org/public/apple-touch-icon-precomposed.png"> -->
+    <!-- <link rel="shortcut icon" href="https://scanapp.org/public/favicon.ico"> -->
+
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../atom.xml">
+</head>
+  <body>
+    <div class="wrap">
+      <div class="masthead">
+        <div class="header-links">         
+    <a href="../../../../index.html">ScanApp - Home</a>
+    <a href="../../../index.html">Blog</a>
+    <a href="../../../../support/index.html">Support</a>
+    <a href="https://github.com/scanapp-org">GitHub project</a>
+</div>
+<style type="text/css">
+.header-links {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 13pt;
+}
+.header-links a {
+    margin: 0px 10px 0px 10px;
+    color: #303030;
+}
+.header-links a {
+    margin: 0px 10px 0px 10px;
+    color: #303030;
+}
+</style>
+        <div class="container">
+          <h3 class="masthead-title">
+            Blog by <a href="../../../../index.html" title="Home">ScanApp</a>
+            <small>QR Code Scanner - Scan QR Code with webcam or files</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Setting dynamic QR box size in Html5-qrcode</h1>
+  <span class="post-date">
+    09 Jan 2022
+    | Authored by <a href="https://minhazav.dev/">Minhaz</a>
+    
+  </span> 
+  <p><a href="https://github.com/mebjas/html5-qrcode">mebjas/html5-qrcode</a> is a fairly used open source library for implementing QR Code or barcode scanner in a web application.</p>
+
+<p><img src="../../../../assets/images/blog/post2/im1.png" alt="" />
+<em>Figure: User interface for Html5-qrcode using <code class="language-plaintext highlighter-rouge">Html5QrcodeScanner</code> class</em></p>
+
+<p>The library provides two approaches for integrating QR code / bar code scanning with any web applications.</p>
+<ol>
+  <li>Core library called <code class="language-plaintext highlighter-rouge">Html5Qrcode</code> which provide APIs for web developers to build the user interface upon and abstracts camera / permissions / QR code or barcode decoding.</li>
+  <li>End to end UI for code scanning as well local image based scanning using <code class="language-plaintext highlighter-rouge">Html5QrcodeScanner</code> class.</li>
+</ol>
+
+<p>One can simply setup a QR code scanning with following lines of code.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- html --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"reader"</span> <span class="na">width=</span><span class="s">"600px"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/html5-qrcode"</span> <span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Javascript code.</span>
+
+<span class="kd">function</span> <span class="nx">onScanSuccess</span><span class="p">(</span><span class="nx">decodedText</span><span class="p">,</span> <span class="nx">decodedResult</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// handle the scanned code as you like, for example:</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Code matched = </span><span class="p">${</span><span class="nx">decodedText</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span> <span class="nx">decodedResult</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span> <span class="na">fps</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="na">qrbox</span><span class="p">:</span> <span class="p">{</span><span class="na">width</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span> <span class="na">height</span><span class="p">:</span> <span class="mi">250</span><span class="p">}</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="nx">html5QrcodeScanner</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Html5QrcodeScanner</span><span class="p">(</span>
+  <span class="dl">"</span><span class="s2">reader</span><span class="dl">"</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="cm">/* verbose= */</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">html5QrcodeScanner</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">onScanSuccess</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">qrbox</code> config lets developers define the portion of the viewfinder that will be used for scanning. It’s supported both in <code class="language-plaintext highlighter-rouge">Html5Qrcode</code> as well as <code class="language-plaintext highlighter-rouge">Html5QrcodeScanner</code> class. Based on this value the library renders a box with shaded regions around it, allowing end-users to compose the scanning device around the QR code or barcodes.</p>
+
+<h2 id="qrbox-configuration"><code class="language-plaintext highlighter-rouge">qrbox</code> configuration</h2>
+<p>Based on the <a href="https://github.com/mebjas/html5-qrcode#documentation">developer documentation</a> you can either pass a dimension of type <code class="language-plaintext highlighter-rouge">QrDimensions</code> as value for this config.</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/** Defines dimension for QR Code Scanner. */</span>
+<span class="kr">interface</span> <span class="nx">QrDimensions</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>So this means for a barcode scanning usecase you can pass a non square configuration like <code class="language-plaintext highlighter-rouge">{width: 400, height: 100}</code> to render scanner like this - likely ideal for scanning rectangual barcodes.</p>
+
+<p><img src="../../../../assets/images/blog/post2/im2.png" alt="" /></p>
+
+<h2 id="dynamically-setting-qrbox-configuration">Dynamically setting <code class="language-plaintext highlighter-rouge">qrbox</code> configuration</h2>
+<p>With <code class="language-plaintext highlighter-rouge">version 2.2.0</code> onwards the library now also supports passing in a function of type <code class="language-plaintext highlighter-rouge">QrDimensionFunction</code> as a value for this configuration.</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * A function that takes in the width and height of the video stream 
+ * and returns QrDimensions.
+ * 
+ * Viewfinder refers to the video showing camera stream.
+ */</span>
+<span class="kd">type</span> <span class="nx">QrDimensionFunction</span> <span class="o">=</span>
+    <span class="p">(</span><span class="nx">viewfinderWidth</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">viewfinderHeight</span><span class="p">:</span> <span class="kr">number</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">QrDimensions</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The function takes in the dimensions of the viewfinder (the video stream with camera feed) and is expected to return <code class="language-plaintext highlighter-rouge">QrDimensions</code>.</p>
+
+<p>This is great, with this you can now set a custom function to determine the QR box dimensions based on run time properties of the video stream that works across form factors.</p>
+
+<p>Here’s an example:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">onScanSuccess</span><span class="p">(</span><span class="nx">decodedText</span><span class="p">,</span> <span class="nx">decodedResult</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// handle the scanned code as you like, for example:</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Code matched = </span><span class="p">${</span><span class="nx">decodedText</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span> <span class="nx">decodedResult</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Square QR box with edge size = 70% of the smaller edge of the viewfinder.</span>
+<span class="kd">let</span> <span class="nx">qrboxFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">viewfinderWidth</span><span class="p">,</span> <span class="nx">viewfinderHeight</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">minEdgePercentage</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">;</span> <span class="c1">// 70%</span>
+    <span class="kd">let</span> <span class="nx">minEdgeSize</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">viewfinderWidth</span><span class="p">,</span> <span class="nx">viewfinderHeight</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">qrboxSize</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">minEdgeSize</span> <span class="o">*</span> <span class="nx">minEdgePercentage</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="na">width</span><span class="p">:</span> <span class="nx">qrboxSize</span><span class="p">,</span>
+        <span class="na">height</span><span class="p">:</span> <span class="nx">qrboxSize</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">html5QrcodeScanner</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Html5QrcodeScanner</span><span class="p">(</span>
+    <span class="dl">"</span><span class="s2">reader</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">{</span> <span class="na">fps</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="na">qrbox</span><span class="p">:</span> <span class="nx">qrboxFunction</span> <span class="p">},</span>
+    <span class="cm">/* verbose= */</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">html5QrcodeScanner</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">onScanSuccess</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>With this you can set the QR box dimensions to always be <code class="language-plaintext highlighter-rouge">70%</code> of the smaller edge of the video stream so it works on both mobile and PC platforms.</p>
+
+</div>
+
+<!-- TODO(mebjas): Add social badges here -->
+
+<script src="../../../../../utteranc.es/client.js"
+  repo="scanapp-org/scanapp-org.github.io"
+  issue-term="url"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="../../../2023/03/22/the-evolution-of-barcodes-and-qr-codes.html">
+            The Evolution of Barcodes and QR Codes: How They Changed the Retail Industry
+            <small>22 Mar 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="../../../2023/03/04/why-should-you-support-html5-qrcode-by-sponsoring.html">
+            Why should you support html5-qrcode project by sponsoring
+            <small>04 Mar 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="../../11/01/using-html5-qrcode-with-only-camera-or-file-options.html">
+            Using Html5-qrcode with only Camera or File options
+            <small>01 Nov 2022</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <div style="text-align: center; margin: 20px">
+    &copy; 2024. All rights reserved - ScanApp.
+</div>
+    <script src='../../../../assets/js/blog.script.js'></script>
+  </body>
+
+<!-- Mirrored from scanapp.org/blog/2022/01/09/setting-dynamic-qr-box-size-in-html5-qrcode.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Apr 2024 23:32:23 GMT -->
+</html>
