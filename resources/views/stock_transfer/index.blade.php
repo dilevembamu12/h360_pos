@@ -135,21 +135,3 @@
         });
     </script>
 @endsection
-
-
-@section("tutoriels-video")
-<div class="row">
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/yKm-McRfuAA?rel=0" title="H360🛒POS - TRANSFERT DE STOCK"
-                    allowfullscreen></iframe>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">H360🛒POS - TRANSFERT DE STOCK</h5>
-                <p class="card-text">comment filtrer les transferts de stock dans H360🛒POS</p>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection

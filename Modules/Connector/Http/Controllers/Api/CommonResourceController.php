@@ -475,9 +475,8 @@ class CommonResourceController extends ApiController
         $end_date = ! empty(request()->input('end_date')) ? request()->input('end_date') : $fy['end'];
 
         $user_id = request()->input('user_id') ?? null;
-        $permitted_locations = auth()->user()->permitted_locations();
 
-        $data = $this->transactionUtil->getProfitLossDetails($business_id, $location_id, $start_date, $end_date, $user_id, $permitted_locations);
+        $data = $this->transactionUtil->getProfitLossDetails($business_id, $location_id, $start_date, $end_date, $user_id);
 
         return [
             'data' => $data,

@@ -10,4 +10,5 @@ Route::middleware('web', 'authh', 'auth', 'SetSessionData', 'language', 'timezon
 Route::middleware('web', 'SetSessionData', 'auth', 'language', 'timezone', 'AdminSidebarMenu')->prefix('connector')->group(function () {
     Route::get('/api', [Modules\Connector\Http\Controllers\ConnectorController::class, 'index']);
     Route::resource('/client', 'Modules\Connector\Http\Controllers\ClientController');
+    Route::get('/regenerate', [Modules\Connector\Http\Controllers\ClientController::class, 'regenerate']);
 });

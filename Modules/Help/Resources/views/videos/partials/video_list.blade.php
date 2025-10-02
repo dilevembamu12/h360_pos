@@ -1,0 +1,24 @@
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Toutes les vidéos</h3>
+        <div class="box-tools">
+            <button type="button" class="btn btn-block btn-primary btn-modal" 
+                data-href="{{action([\Modules\Help\Http\Controllers\VideoTutorialController::class, 'create'])}}" 
+                data-container=".video_tutorial_modal">
+                <i class="fa fa-plus"></i> Ajouter une vidéo</button>
+        </div>
+    </div>
+    <div class="box-body">
+        <table class="table table-bordered table-striped" id="video_tutorials_table">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>URL d'affichage</th>
+                    <th>Hashtags</th>
+                    <th>@lang('messages.action')</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<div class="modal fade video_tutorial_modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel"></div>

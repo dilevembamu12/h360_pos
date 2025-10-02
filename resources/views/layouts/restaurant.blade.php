@@ -73,15 +73,12 @@
         
         
         @auth
-            {{--
             <script src='https://ai.h360.cd/Modules/Chatbot/Resources/assets/js/chatbot-widget.min.js'  data-iframe-src="https://ai.h360.cd/chatbot/embed/chatbot_code=bot_{{auth()->user()->business_id}}_{{auth()->user()->id}}/welcome" data-iframe-height="532" data-iframe-width="400"></script>
-            --}}
 
         @else
-            {{--
-            <script src='https://ai.h360.cd/Modules/Chatbot/Resources/assets/js/chatbot-widget.min.js'  data-iframe-src="https://ai.h360.cd/chatbot/embed/chatbot_code={{env("ADMINISTRATOR_CHATBOT_CODE")}}/welcome" data-iframe-height="532" data-iframe-width="400"></script>
-            --}}
+            <script src='https://ai.h360.cd/Modules/Chatbot/Resources/assets/js/chatbot-widget.min.js'  data-iframe-src="https://ai.h360.cd/chatbot/embed/chatbot_code=711535ffedd14e4/welcome" data-iframe-height="532" data-iframe-width="400"></script>
         @endauth
+    
     </body>
 
 </html>

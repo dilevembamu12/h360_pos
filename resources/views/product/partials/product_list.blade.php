@@ -41,6 +41,22 @@
         <tr>
             <td colspan="{{$colspan}}">
             <div style="display: flex; width: 100%;">
+
+
+                {{-- Le bouton peut être placé dans ou près des contrôles du footer du datatable --}}
+                {{-- La classe dataTables_scrollFootInner est dynamique, c'est mieux de cibler
+                 une div statique ou le wrapper Datatables lui-même et d'ajouter le bouton --}}
+                 <div class="form-group pull-left"> {{-- Utilisez pull-left/right ou classes flexbox pour positionner --}}
+                    <button type="button" class="btn btn-primary btn-sm" id="bulk-edit-products-btn" disabled>
+                       <i class="fas fa-edit"></i> Modification rapide
+                   </button>
+               </div>
+               {{-- Le reste des contrôles Datatables (infos, pagination) sera ici dynamiquement --}}
+
+
+
+
+
                 @can('product.delete')
                     {!! Form::open(['url' => action([\App\Http\Controllers\ProductController::class, 'massDestroy']), 'method' => 'post', 'id' => 'mass_delete_form' ]) !!}
                     {!! Form::hidden('selected_rows', null, ['id' => 'selected_rows']); !!}
@@ -50,7 +66,7 @@
 
                 
                     @can('product.update')
-                    
+
                         @if(config('constants.enable_product_bulk_edit'))
                             &nbsp;
                             {!! Form::open(['url' => action([\App\Http\Controllers\ProductController::class, 'bulkEdit']), 'method' => 'post', 'id' => 'bulk_edit_form' ]) !!}
@@ -58,6 +74,12 @@
                             <button type="submit" class="btn btn-xs btn-primary" id="edit-selected"> <i class="fa fa-edit"></i>{{__('lang_v1.bulk_edit')}}</button>
                             {!! Form::close() !!}
                         @endif
+
+                        {{-- /******* end personnalize custom bulk product quick change 01052025 */ --}}
+                        <button type="button" class="btn btn-xs btn-success quick_update_product" data-type="add">**Quick Change</button>
+                        {{-- ------------------------------------------------- --}}
+
+
                         &nbsp;
                         <button type="button" class="btn btn-xs btn-success update_product_location" data-type="add">@lang('lang_v1.add_to_location')</button>
                         &nbsp;

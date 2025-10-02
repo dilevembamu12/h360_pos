@@ -1,0 +1,111 @@
+.color-input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 60px;
+    transition: width 0.3s ease-in-out;
+    width: 40px;
+    border: 3px solid white;
+    overflow: hidden;
+}
+
+.color-container {
+    width: 34px;
+    height: 34px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: border 0.3s ease-in-out;
+}
+
+.color-container.marked {
+    padding: 4px;
+    border: 1px solid #2c2c2c;
+}
+
+.color-container.marked>input[type=color] {
+    padding: 5px;
+    top: -3px;
+    left: -3px;
+    width: 38px;
+    height: 38px;
+}
+
+.color-input-container.expanded {
+    width: 130px;
+    transition: width 0.3s ease-in-out;
+}
+
+.drawer {
+    transition: 0.3s ease-in-out;
+    max-height: 0;
+    opacity: 0;
+    z-index: 1;
+    max-width: 0;
+}
+
+.drawer.open {
+    max-height: 100px;
+    opacity: 1;
+    padding: 0px 10px;
+}
+
+.color-code {
+    white-space: nowrap;
+    font-size: 16px;
+    color: #2c2c2c;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.themes input[type=color] {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    top: -2px;
+    left: -2px;
+    position: absolute;
+}
+
+.themes input[type=color]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+    padding-bottom: 10px;
+}
+
+.themes input[type=color]::-webkit-color-swatch-wrapper {
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.select-theme {
+    color: #2c2c2c;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.theme-container {
+    background-color: #F3F3F3;
+    padding: 20px;
+    border-radius: 8px;
+}
+@media only screen and (min-width:1200px){
+    .theme-container {
+        width:max-content
+}
+}
+.bg-color-f3{
+    background-color: #f3f3f3
+}
+.training-card-title{
+    color: #2c2c2c;
+    font-size: 16px;
+    font-weight: 700;
+}
+.-mt-6p{
+    margin-top: -6px
+}

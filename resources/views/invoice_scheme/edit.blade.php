@@ -98,5 +98,3 @@
 
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-    
-    

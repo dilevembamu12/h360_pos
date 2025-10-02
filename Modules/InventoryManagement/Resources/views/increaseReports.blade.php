@@ -90,5 +90,3 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
 
-
-@include('inventorymanagement::partials.tutorial_video')

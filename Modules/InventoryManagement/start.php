@@ -15,50 +15,53 @@ if (!app()->routesAreCached()) {
     require __DIR__ . '/Http/routes.php';
 }
 
-function inventorymanagement1($ul, $pt, $lc, $em, $un, $type = 1, $pid = null)
-{
-    $ch = curl_init();
-    $request_url = ($type == 1) ? base64_decode(config('inventorymanagement.lic1')) : base64_decode(config('inventorymanagement.lic2'));
-  
-    $pid = is_null($pid) ? config('inventorymanagement.pid') : $pid;
+if (!function_exists('inventorymanagement1')) {
+    function inventorymanagement1($ul, $pt, $lc, $em, $un, $type = 1, $pid = null)
+    {
+        $ch = curl_init();
+        $request_url = ($type == 1) ? base64_decode(config('inventorymanagement.lic1')) : base64_decode(config('inventorymanagement.lic2'));
 
-    $curlConfig = [CURLOPT_URL => $request_url,
-        CURLOPT_POST => true,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_SSL_VERIFYHOST => false,
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_POSTFIELDS     => [
-            'url' => $ul,
-            'path' => $pt,
-            'license_code' => $lc,
-            'email' => $em,
-            'username' => $un,
-            'product_id' => $pid
-        ]
-    ];
-    curl_setopt_array($ch, $curlConfig);
-    $result = curl_exec($ch);
+        $pid = is_null($pid) ? config('inventorymanagement.pid') : $pid;
 
-    if (curl_errno($ch)) {
-        $error_msg = 'C'.'U'.'RL '.'E'.'rro'.'r: ';
-        $error_msg .= curl_errno($ch);
+        $curlConfig = [
+            CURLOPT_URL => $request_url,
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_POSTFIELDS => [
+                'url' => $ul,
+                'path' => $pt,
+                'license_code' => $lc,
+                'email' => $em,
+                'username' => $un,
+                'product_id' => $pid
+            ]
+        ];
+        curl_setopt_array($ch, $curlConfig);
+        $result = curl_exec($ch);
 
-        return redirect()->back()
-            ->with('error', $error_msg);
-    }
-    curl_close($ch);
+        if (curl_errno($ch)) {
+            $error_msg = 'C' . 'U' . 'RL ' . 'E' . 'rro' . 'r: ';
+            $error_msg .= curl_errno($ch);
 
-    if ($result) {
-        $result = json_decode($result, true);
-
-        if ($result['flag'] == 'valid') {
-            // if(!empty($result['data'])){
-            //     $this->_handle_data($result['data']);
-            // }
-        } else {
-            $msg = (isset($result['msg']) && !empty($result['msg'])) ? $result['msg'] : "I"."nvali"."d "."Lic"."ense Det"."ails";
             return redirect()->back()
-                ->with('error', $msg);
+                ->with('error', $error_msg);
+        }
+        curl_close($ch);
+
+        if ($result) {
+            $result = json_decode($result, true);
+
+            if ($result['flag'] == 'valid') {
+                // if(!empty($result['data'])){
+                //     $this->_handle_data($result['data']);
+                // }
+            } else {
+                $msg = (isset($result['msg']) && !empty($result['msg'])) ? $result['msg'] : "I" . "nvali" . "d " . "Lic" . "ense Det" . "ails";
+                return redirect()->back()
+                    ->with('error', $msg);
+            }
         }
     }
 }

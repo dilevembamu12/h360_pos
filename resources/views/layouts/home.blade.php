@@ -1,3 +1,6 @@
+
+
+
 <!doctype html>
 <html lang="{{ config('app.locale') }}">
     <head>
@@ -56,68 +59,11 @@
     <!-- Scripts -->
     <script src="{{ asset('js/login.js?v=' . $asset_v) }}"></script>
     @yield('javascript')
-    
-     @auth
-    {{--
+
+    @auth
         <script src='https://ai.h360.cd/Modules/Chatbot/Resources/assets/js/chatbot-widget.min.js'  data-iframe-src="https://ai.h360.cd/chatbot/embed/chatbot_code=bot_{{auth()->user()->business_id}}_{{auth()->user()->id}}/welcome" data-iframe-height="532" data-iframe-width="400"></script>
-        --}}
-        
-        <script src='https://ai.h360.cd/Modules/Chatbot/Resources/assets/js/chatbot-widget.min.js'  data-iframe-src="https://ai.h360.cd/chatbot/embed/chatbot_code={{env("ADMINISTRATOR_CHATBOT_CODE")}}/welcome" data-iframe-height="532" data-iframe-width="400"></script>
-
     @else
-        <script src='https://ai.h360.cd/Modules/Chatbot/Resources/assets/js/chatbot-widget.min.js'  data-iframe-src="https://ai.h360.cd/chatbot/embed/chatbot_code={{env("ADMINISTRATOR_CHATBOT_CODE")}}/welcome" data-iframe-height="532" data-iframe-width="400"></script>
+        <script src='https://ai.h360.cd/Modules/Chatbot/Resources/assets/js/chatbot-widget.min.js'  data-iframe-src="https://ai.h360.cd/chatbot/embed/chatbot_code=711535ffedd14e4/welcome" data-iframe-height="532" data-iframe-width="400"></script>
     @endauth
-    
-    
-    
-    
-    
-    {{-- personnalize custom code 12042025-TUTOSECTION -- 12042025 --}}
-    {{-- BODY CSS POUR SECTION TUTO --}}
-    <div class="tutorial-container no-print">
-        <!-- Bouton Flottant d'Apprentissage -->
-        <button id="tutorial-toggle" class="btn btn-primary tutorial-button">
-            <i class="fas fa-video"></i>
-        </button>
-
-        <!-- Section Tutoriels Vidéo (initialement cachée) -->
-        <section id="tutoriels-video" class="tutorial-section container py-5">
-            <h2>Besoin d'aide ? Découvrez nos tutoriels vidéo</h2>
-            @yield('tutoriels-video')
-            <div class="text-center">
-                <a href="https://academy.h360.cd" class="btn btn-primary" target="_blank">Voir tous les tutoriels</a>
-            </div>
-        </section>
-    </div>
-    {{-- **************END***************************************** --}}
-    {{-- personnalize custom code 12042025-TUTOSECTION -- 12042025 --}}
-    {{-- BODY CSS POUR SECTION TUTO --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-  const tutorialToggle = document.getElementById('tutorial-toggle');
-  const tutorialSection = document.getElementById('tutoriels-video');
-
-  tutorialToggle.addEventListener('click', function() {
-    tutorialSection.classList.toggle('active');
-
-    // Modification : Changer le texte et l'icône du bouton
-    if (tutorialSection.classList.contains('active')) {
-      tutorialToggle.innerHTML = '<i class="fas fa-times-circle"></i>';
-      tutorialToggle.classList.remove('transparent'); // S'assurer qu'il est visible
-    } else {
-      tutorialToggle.innerHTML = '<i class="fas fa-video"></i>';
-      setTimeout(function() {
-        tutorialToggle.classList.add('transparent');
-      }, 10000); // Réappliquer la transparence après 10 secondes
-    }
-  });
-
-  // Ajout de la classe "transparent" après 10 secondes (initialement)
-  setTimeout(function() {
-    tutorialToggle.classList.add('transparent');
-  }, 10000);
-});
-    </script>
-    {{-- **************END***************************************** --}}
-    </body>
+</body>
 </html>

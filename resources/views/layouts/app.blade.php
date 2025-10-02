@@ -162,23 +162,10 @@ $module_util = new ModuleUtil();
     @include('layouts.partials.css')
 
     @yield('css')
-    
-    
-    <script>
-      window.USERTOURJS_ENV_VARS = {
-        // WebSocket connection URL
-        WS_URI: "https://usertour.scaling.h360.cd/",
-        
-        // Base URL for SDK assets
-        ASSETS_URI: "https://usertour.scaling.h360.cd/sdk/",
-        
-        // Modern JavaScript bundle (ES2020)
-        USERTOURJS_ES2020_URL: 'https://usertour.scaling.h360.cd/sdk/es2020/usertour.js',
-        
-        // Legacy JavaScript bundle (IIFE)
-        USERTOURJS_LEGACY_URL: "https://usertour.scaling.h360.cd/sdk/legacy/usertour.iife.js"
-      };
-    </script>
+
+
+    <link rel="stylesheet" href="{{ asset('modules/help/css/help.css') }}">
+    <link rel="stylesheet" href="{{ asset('modules/h360copilot/css/copilot.css') }}">
 </head>
 
 <body
@@ -283,32 +270,10 @@ $module_util = new ModuleUtil();
     @if (!empty($__additional_html))
         {!! $__additional_html !!}
     @endif
-    
-    
-    
 
     @include('layouts.partials.javascripts')
 
     <div class="modal fade view_modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel"></div>
-    
-    {{-- personnalize custom code 12042025-TUTOSECTION -- 12042025 --}}
-    {{-- BODY CSS POUR SECTION TUTO --}}
-    <div class="tutorial-container no-print">
-        <!-- Bouton Flottant d'Apprentissage -->
-        <button id="tutorial-toggle" class="btn btn-primary tutorial-button">
-            <i class="fas fa-video"></i>
-        </button>
-
-        <!-- Section Tutoriels Vidéo (initialement cachée) -->
-        <section id="tutoriels-video" class="tutorial-section container py-5">
-            <h2>Besoin d'aide ? Découvrez nos tutoriels vidéo</h2>
-            @yield('tutoriels-video')
-            <div class="text-center">
-                <a href="https://academy.h360.cd" class="btn btn-primary" target="_blank">Voir tous les tutoriels</a>
-            </div>
-        </section>
-    </div>
-    {{-- **************END***************************************** --}}
 
     @if (!empty($__additional_views) && is_array($__additional_views))
         @foreach ($__additional_views as $additional_view)
@@ -319,96 +284,42 @@ $module_util = new ModuleUtil();
     @yield('mycustom_js')
     
     
-    {{-- personnalize custom code 12042025-TUTOSECTION -- 12042025 --}}
-    {{-- BODY CSS POUR SECTION TUTO --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-  const tutorialToggle = document.getElementById('tutorial-toggle');
-  const tutorialSection = document.getElementById('tutoriels-video');
+    {{--    
+    auth()->user()
+    session()->get('user.business_id')
 
-  tutorialToggle.addEventListener('click', function() {
-    tutorialSection.classList.toggle('active');
+    <script src='https://ai.h360.cd/Modules/Chatbot/Resources/assets/js/chatbot-widget.min.js'  data-iframe-src="https://ai.h360.cd/chatbot/embed/chatbot_code=711535ffedd14e4/welcome" data-iframe-height="532" data-iframe-width="400"></script>
+    
 
-    // Modification : Changer le texte et l'icône du bouton
-    if (tutorialSection.classList.contains('active')) {
-      tutorialToggle.innerHTML = '<i class="fas fa-times-circle"></i>';
-      tutorialToggle.classList.remove('transparent'); // S'assurer qu'il est visible
-    } else {
-      tutorialToggle.innerHTML = '<i class="fas fa-video"></i>';
-      setTimeout(function() {
-        tutorialToggle.classList.add('transparent');
-      }, 10000); // Réappliquer la transparence après 10 secondes
-    }
-  });
-
-  // Ajout de la classe "transparent" après 10 secondes (initialement)
-  setTimeout(function() {
-    tutorialToggle.classList.add('transparent');
-  }, 10000);
-});
-    </script>
-    {{-- **************END***************************************** --}}
-    
-    
-    {{--
-    <script src='https://ai.h360.cd/Modules/Chatbot/Resources/assets/js/chatbot-widget.min.js'  data-iframe-src="https://ai.h360.cd/chatbot/embed/chatbot_code=bot_{{auth()->user()->business_id}}_{{auth()->user()->id}}/welcome" data-iframe-height="532" data-iframe-width="400"></script>
-    --}}
-    
-    {{-- 
-     <script src='https://ai.h360.cd/Modules/Chatbot/Resources/assets/js/chatbot-widget.min.js'  data-iframe-src="https://ai.h360.cd/chatbot/embed/chatbot_code={{env("ADMINISTRATOR_CHATBOT_CODE")}}/welcome" data-iframe-height="532" data-iframe-width="400"></script>
+     <script src='https://ai.h360.cd/Modules/Chatbot/Resources/assets/js/chatbot-widget.min.js'  data-iframe-src="https://ai.h360.cd/chatbot/embed/chatbot_code=bot_{{auth()->user()->business_id}}_{{auth()->user()->id}}/welcome" data-iframe-height="532" data-iframe-width="400"></script>
      --}}
-     
-     
-     <script>
-        !function(){var e="undefined"==typeof window?{}:window,r=e.usertour;if(console.log("enter npm backage, usertour:",r),!r){var t="https://js.usertour.io/";console.log("enter npm backage: ",t);var n=null;r=e.usertour={_stubbed:!0,load:function(){return n||(n=new Promise((function(r,o){var s=document.createElement("script");s.async=!0;var a=e.USERTOURJS_ENV_VARS||{};"es2020"===(a.USERTOURJS_BROWSER_TARGET||function(e){for(var r=[[/Edg\//,/Edg\/(\d+)/,80],[/OPR\//,/OPR\/(\d+)/,67],[/Chrome\//,/Chrome\/(\d+)/,80],[/CriOS\//,/CriOS\/(\d+)/,100],[/Safari\//,/Version\/(\d+)/,14],[/Firefox\//,/Firefox\/(\d+)/,74]],t=0;t<r.length;t++){var n=r[t],o=n[0],s=n[1],a=n[2];if(e.match(o)){var i=e.match(new RegExp(s));if(i&&parseInt(i[1],10)>=a)return"es2020";break}}return"legacy"}(navigator.userAgent))?(s.type="module",s.src=a.USERTOURJS_ES2020_URL||t+"es2020/usertour.js"):s.src=a.USERTOURJS_LEGACY_URL||t+"legacy/usertour.iife.js",s.onload=function(){r()},s.onerror=function(){document.head.removeChild(s),n=null;var e=new Error("Could not load Usertour.js");console.warn(e.message),o(e)},document.head.appendChild(s)}))),n}};var o=e.USERTOURJS_QUEUE=e.USERTOURJS_QUEUE||[],s=function(e){r[e]=function(){var t=Array.prototype.slice.call(arguments);r.load(),o.push([e,null,t])}},a=function(e){r[e]=function(){var t,n=Array.prototype.slice.call(arguments);r.load();var s=new Promise((function(e,r){t={resolve:e,reject:r}}));return o.push([e,t,n]),s}},i=function(e,t){r[e]=function(){return t}};s("init"),s("off"),s("on"),s("reset"),s("setBaseZIndex"),s("setSessionTimeout"),s("setTargetMissingSeconds"),s("setCustomInputSelector"),s("setCustomNavigate"),s("setCustomScrollIntoView"),s("setInferenceAttributeFilter"),s("setInferenceAttributeNames"),s("setInferenceClassNameFilter"),s("setScrollPadding"),s("setServerEndpoint"),s("setShadowDomEnabled"),s("setPageTrackingDisabled"),s("setUrlFilter"),s("setLinkUrlDecorator"),a("endAll"),a("group"),a("identify"),a("identifyAnonymous"),a("start"),a("track"),a("updateGroup"),a("updateUser"),i("isIdentified",!1),i("isStarted",!1)}}();
 
-            // Initialize the Usertour SDK with your environment token
-            usertour.init('cmfzhzq8600063y2cw5kkbp3c');
-        
-            // Identify the current user with their attributes
-            @if(config('app.env') === 'local' && request()->has('test_usertour'))
-        
-                // --- MODE FAKER POUR LES TESTS ---
-                // Ce bloc simule différents types d'utilisateurs de manière aléatoire.
-        
-                const fakeUsers = [
-                    { id: 'fake_usr_starter', name: 'Sophie Dubois (Test)', email: 'sophie.test@email.com', signed_up_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), plan: 'Starter', business_type: 'Boutique' },
-                    { id: 'fake_usr_business', name: 'Antoine Lefevre (Test)', email: 'antoine.test@email.com', signed_up_at: new Date(Date.now() - 150 * 24 * 60 * 60 * 1000).toISOString(), plan: 'Business', business_type: 'Restaurant', user_role: 'admin' },
-                    { id: 'fake_usr_cashier', name: 'Marie Ngoma (Test)', email: 'marie.test@email.com', signed_up_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(), plan: 'Business', user_role: 'cashier' },
-                    { id: 'fake_usr_free', name: 'Jean-Pierre Lema (Test)', email: 'jp.test@email.com', signed_up_at: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), plan: 'Essentiel' }
-                ];
-        
-                // Sélectionne un utilisateur aléatoire dans la liste à chaque rechargement de page
-                const randomUser = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
-        
-                // Affiche un message dans la console pour savoir quel utilisateur est simulé
-                console.log('%cUSERTOUR FAKER MODE:', 'color: orange; font-weight: bold;', 'Simulating user:', randomUser);
-        
-                usertour.identify(randomUser.id, {
-                    name: randomUser.name,
-                    email: randomUser.email,
-                    signed_up_at: randomUser.signed_up_at, // Usertour attend 'signed_up_at'
-                    plan: randomUser.plan,
-                    business_type: randomUser.business_type,
-                    user_role: randomUser.user_role
-                });
-        
-            @else
-        
-                // --- MODE PRODUCTION ---
-                // Utilise les vraies données de l'utilisateur authentifié.
-                
-                usertour.identify("{{ Auth::user()->id }}", {
-                    name: "{{ Auth::user()->username }}",
-                    email: "{{ Auth::user()->email }}",
-                    signed_up_at: "{{ Auth::user()->created_at->toIso8601String() }}", // Conversion au format ISO 8601
-                    
-                    // Exemple d'attribut personnalisé que vous pourriez avoir
-                    // plan: "{{ Auth::user()->business->subscription->package->name ?? 'Essentiel' }}"
-                });
-        
-            @endif
+
+    {{-- =================================================================== --}}
+    {{-- ============== SECTION AIDE & H360COPILOT ========================= --}}
+    {{-- =================================================================== --}}
+
+    {{-- Chargement du HTML pour le bouton flottant (déjà présent) --}}
+    @include('help::partials.floating_help_button')
+
+    {{-- **LIGNE MANQUANTE** : Chargement du HTML pour la fenêtre du chatbot --}}
+    @include('h360copilot::partials.chatbot')
+
+    {{-- Déclaration des variables pour les scripts --}}
+    <script>
+        var fetch_videos_url = "{{ route('help.fetchVideos') }}";
+        var copilot_ask_url = "{{ route('h360_copilot.ask') }}";
     </script>
-</body>
+
+    {{-- Chargement des scripts des modules --}}
+    <script src="{{ asset('modules/help/js/help.js') }}"></script>
+    <script src="{{ asset('modules/h360copilot/js/copilot.js') }}"></script>
+
+    {{-- =================================================================== --}}
+
+
+     
+    </body>
 
 </html>
+   

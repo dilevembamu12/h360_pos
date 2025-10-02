@@ -60,27 +60,19 @@
 
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
+            <a href="https://pos.h360.cd/pos/create" title="" data-toggle="tooltip" data-placement="bottom" class="btn btn-flat pull-left m-8 btn-sm mt-10 btn-success" data-original-title="POS (PDV)">
+                <strong><i class="fa fa-th-large"></i> &nbsp; POS (PDV)</strong>
+            </a>    
+
             {{--  personnalize custom code 06022024-MULTIDEVISE002 --}}
             {{--  currency switcher --}}
-            {{--  rendu invisible: car focntionnalité pas trop utilisée
             @can('profit_loss_report.view')
                 {!! Form::select('currency_id', $currencies, $business->currency_id, [
                     'class' => 'form-control select2',
                     'required',
                 ]) !!}
             @endcan
-            --}}
             {{--  **************************************************** --}}
-            
-            
-            {{--  personnalize custom code 01042025-SUBSCRIPTION_TOP_BUTTON --}}
-            <a href="/subscription" title="" data-toggle="tooltip" data-placement="bottom" class="btn btn-flat pull-left m-8 btn-sm mt-10 btn-success" data-original-title="POS (PDV)" style="background-color:#800080">
-                <strong><i class="fa fa-hourglass-half"></i> &nbsp; ** ABONNEMENT</strong>
-            </a>
-            {{--  **************************************************** --}}
-            
-            
-            
 
             @if (Module::has('Essentials'))
                 @includeIf('essentials::layouts.partials.header_part')

@@ -1,0 +1,173 @@
+/* Fichier : Modules/Help/Resources/assets/css/help.css */
+
+/* Conteneur principal du bouton flottant */
+.floating-help-container {
+    position: fixed;
+    bottom: 50px;
+    left: 20px;
+    z-index: 1050;
+}
+
+/* Bouton principal (icône avec '?') */
+.floating-help-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    /* --- NOUVEAU : Transparence par défaut --- */
+    opacity: 0.6;
+}
+
+/* --- NOUVEAU : Opacité complète au survol ou quand le menu est actif --- */
+.floating-help-container:hover .floating-help-button,
+.floating-help-container.active .floating-help-button {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Conteneur des options (invisible par défaut) */
+.help-options {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    pointer-events: none; /* Ne pas intercepter les clics quand il est caché */
+}
+
+/* Style des boutons d'options individuels */
+.help-option-button {
+    position: absolute;
+    top: 6px;  /* Centrage vertical (60px - 48px) / 2 */
+    left: 6px; /* Centrage horizontal (60px - 48px) / 2 */
+    background-color: #5bc0de;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(.68,-0.55,.27,1.55);
+    
+    /* --- NOUVEAU : Caché par défaut --- */
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+}
+
+.help-option-button:hover {
+    background-color: #31b0d5;
+    transform: scale(1.1); /* L'animation de survol est conservée */
+}
+
+/* --- NOUVEAU : Animation radiale quand le menu est actif --- */
+.floating-help-container.active .help-options {
+    pointer-events: auto; /* Activer les clics sur les boutons */
+}
+
+.floating-help-container.active .help-option-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Positionnement de chaque bouton en arc de cercle */
+.floating-help-container.active .help-option-button:nth-child(1) {
+    transform: translateY(-70px) scale(1);
+    transition-delay: 0.2s;
+}
+.floating-help-container.active .help-option-button:nth-child(2) {
+    transform: translateX(50px) translateY(-50px) scale(1);
+    transition-delay: 0.15s;
+}
+.floating-help-container.active .help-option-button:nth-child(3) {
+    transform: translateX(70px) scale(1);
+    transition-delay: 0.1s;
+}
+.floating-help-container.active .help-option-button:nth-child(4) {
+    transform: translateX(50px) translateY(50px) scale(1);
+    transition-delay: 0.05s;
+}
+
+/* Style pour l'intégration des vidéos (ne change pas) */
+.ratio { position: relative; width: 100%; }
+.ratio-16x9::before { content: ""; display: block; padding-top: 56.25%; }
+.ratio iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+
+
+/*
+* STYLES POUR LE POPUP VIDÉO
+*/
+
+#video-tutorials-modal .modal-header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+#video-tutorials-modal .modal-title {
+    font-weight: 500;
+}
+
+#video-tutorials-modal .modal-body {
+    background-color: #f5f5f5;
+}
+
+.video-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden; /* Pour que l'iframe respecte les coins arrondis */
+    transition: all 0.2s ease-in-out;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.video-card .ratio {
+    border-bottom: 1px solid #ddd;
+}
+
+.video-card-body {
+    padding: 15px;
+}
+
+.video-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.video-card-text {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 0;
+}
+
+
+/* Styles pour l'Académie H360 */
+.badge-container {
+    margin-top: 20px;
+}
+.badge-container > i {
+    margin: 0 15px;
+}
+.badge-earned {
+    color: #f39c12; /* Jaune/Or */
+}
+.badge-locked {
+    color: #d2d6de; /* Gris */
+}

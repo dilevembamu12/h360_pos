@@ -57,5 +57,3 @@
     <!-- /.content -->
 @include('inventorymanagement::partials.mainscript')
 @endsection
-
-@include('inventorymanagement::partials.tutorial_video')

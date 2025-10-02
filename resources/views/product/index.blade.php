@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('title', __('sale.products'))
 
-
-
 @section('content')
 
 <!-- Content Header (Page header) -->
@@ -172,6 +170,13 @@
     @include('product.partials.toggle_woocommerce_sync_modal')
 @endif
 @include('product.partials.edit_product_location_modal')
+
+
+{{-- /******* end personnalize custom bulk product quick change 01052025 */ --}}
+
+@include('product.partials.quick_update_product_modal')
+
+{{-- ------------------------------------------------- --}}
 
 </section>
 <!-- /.content -->
@@ -647,6 +652,109 @@
             }    
         });
 
+
+        $(document).on('click', '.quick_update_product', function(e){
+            e.preventDefault();
+            var selected_rows = getSelectedRows();
+            
+            if(selected_rows.length > 0){
+                $('input#selected_products').val(selected_rows);
+                var type = $(this).data('type');
+                var modal = $('#quick_update_product_modal');
+                
+                modal.modal('show');
+                modal.find('#product_location').select2({ dropdownParent: modal });
+                modal.find('#product_location').val('').change();
+                modal.find('#update_type').val(type);
+                modal.find('#products_to_update_location').val(selected_rows);
+            } else{
+                $('input#selected_products').val('');
+                swal('@lang("lang_v1.no_row_selected")');
+            }    
+        });
+
+
+
+
+
+
+
+
+
+        // Gérer la sélection/désélection des checkboxes individuelles
+        // Utiliser la délégation d'événement car les lignes sont chargées par AJAX
+        alert(1111222);
+        $('#product_table tbody').on('change', 'input.product-select', function(){
+            alert(11);
+
+            /*
+            var productId = $(this).data('product-id');
+
+            if ($(this).is(':checked')) {
+                // Ajouter l'ID si coché et pas déjà dans le tableau
+                if (selectedProductIds.indexOf(productId) === -1) {
+                    selectedProductIds.push(productId);
+                }
+            } else {
+                // Retirer l'ID si décoché et présent dans le tableau
+                selectedProductIds = selectedProductIds.filter(function(id) {
+                    return id !== productId;
+                });
+            }
+            */
+
+            // Mettre à jour l'état du bouton "Modification rapide"
+            if (selectedProductIds.length > 0) {
+                $('#bulk-edit-products-btn').prop('disabled', false);
+            } else {
+                $('#bulk-edit-products-btn').prop('disabled', true);
+            }
+
+            // Mettre à jour l'état de la checkbox "Tout sélectionner" (facultatif)
+            var totalCheckboxes = $('#product_table tbody input.product-select').length;
+            var checkedCheckboxes = $('#product_table tbody input.product-select:checked').length;
+
+            if (totalCheckboxes > 0 && checkedCheckboxes === totalCheckboxes) {
+                 $('#select-all-products').prop('checked', true);
+            } else {
+                 $('#select-all-products').prop('checked', false);
+            }
+        });
+        $('#bulk-edit-products-btn').on('click', function(e){
+            e.preventDefault();
+            var selected_rows = getSelectedRows();
+
+            if (selected_rows.length === 0) {
+                // Afficher un message si aucun produit n'est sélectionné (devrait être géré par l'état disabled du bouton, mais double vérification)
+                if (typeof toastr !== 'undefined') {
+                    toastr.warning("{{ __('Veuillez sélectionner au moins un produit.') }}");
+                } else {
+                    alert("Veuillez sélectionner au moins un produit.");
+                }
+                return;
+            }
+
+            // Réinitialiser le formulaire de la modale à chaque ouverture
+            $('#bulkEditProductForm')[0].reset();
+             // Réinitialiser spécifiquement les champs Select2
+            $('#bulkEditProductModal .select2').val('').trigger('change');
+
+            // Ouvrir la modale
+            $('#bulkEditProductModal').modal('show');
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
     $(document).on('submit', 'form#edit_product_location_form', function(e) {
         e.preventDefault();
         var form = $(this);
@@ -675,66 +783,4 @@
         });
     });
     </script>
-@endsection
-
-
-
-
-
-
-
-@section("tutoriels-video")
-<div class="row">
-    
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/ssdP-qBLps0?rel=0" title="Tutoriel : Prise en main ecran d'accueil produit Partie 1"
-                    allowfullscreen></iframe>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Tutoriel : Prise en main ecran d'accueil produit Partie 1</h5>
-                <p class="card-text">Apprenez à utiliser les fonctionnalites H360🛒POS.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/gNsA3C8fCmA?rel=0" title="Tutoriel : Prise en main ecran d'accueil produit Partie 2"
-                    allowfullscreen></iframe>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Tutoriel : Prise en main ecran d'accueil produit Partie 2</h5>
-                <p class="card-text">Apprenez à utiliser les fonctionnalites H360🛒POS.</p>
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/iQi_Oj1Q0AE?rel=0" title="H360🛒POS - PRODUIT - TABLEAU"
-                    allowfullscreen></iframe>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">H360🛒POS - PRODUIT - TABLEAU</h5>
-                <p class="card-text">Comment interpréter le tableau de la liste de produits</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/kPlDJa5DyGA?rel=0" title="- PRODUIT - DETAIL"
-                    allowfullscreen></iframe>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">- PRODUIT - DETAIL</h5>
-                <p class="card-text">comment lire les détails d'un produit</p>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

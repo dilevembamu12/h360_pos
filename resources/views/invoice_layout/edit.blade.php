@@ -1155,22 +1155,3 @@
     })
 </script>
 @endsection
-
-
-
-@section("tutoriels-video")
-<div class="row">
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/SXyhrtLPeBY?rel=0" title="H360🛒POS - GESTION DE ROLE"
-                    allowfullscreen></iframe>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">H360🛒POS - FACTURE</h5>
-                <p class="card-text">comment personnaliser les factures</p>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection

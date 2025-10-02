@@ -701,7 +701,6 @@ class SellController extends ApiController
      * @bodyParam sells.*.products.*.discount_amount float discount amount applicable on the product Example:0.0000
      * @bodyParam sells.*.products.*.discount_type string type of discount amount ('fixed', 'percentage') Example: percentage
      * @bodyParam sells.*.products.*.sub_unit_id int sub unit id
-     * @bodyParam sells.*.products.*.res_service_staff_id int service staff id
      * @bodyParam sells.*.products.*.note string note for the product
      *
      *
@@ -1089,7 +1088,6 @@ class SellController extends ApiController
      * @bodyParam products.*.discount_amount float discount amount applicable on the product  Example:0.0000
      * @bodyParam products.*.discount_type string type of discount amount ('fixed', 'percentage') Example: percentage
      * @bodyParam products.*.sub_unit_id int sub unit id
-     * @bodyParam products.*.res_service_staff_id int service staff id 
      * @bodyParam products.*.note string note for the product
      *
      *
@@ -1499,8 +1497,6 @@ class SellController extends ApiController
                     'sub_unit_id' => $this->__getValue('sub_unit_id', $product_data,
                                         $sell_line),
                     'unit_price_inc_tax' => $unit_price_inc_tax,
-                    'res_service_staff_id' => $this->__getValue('res_service_staff_id', $product_data,
-                    $sell_line),
                 ];
                 if (! empty($sell_line)) {
                     $formated_sell_line['transaction_sell_lines_id'] = $sell_line->id;

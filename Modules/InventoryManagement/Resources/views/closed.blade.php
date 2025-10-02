@@ -46,5 +46,3 @@
 
 @endsection
 
-
-@include('inventorymanagement::partials.tutorial_video')

@@ -1,7 +1,7 @@
 {
     "name": "Connector",
     "alias": "connector",
-    "description": "Provide the API's for POS. Direct Install by TioGazpasho",
+    "description": "Provide the API's for POS",
     "keywords": [],
     "active": 1,
     "order": 0,

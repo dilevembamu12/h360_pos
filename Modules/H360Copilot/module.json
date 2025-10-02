@@ -1,0 +1,11 @@
+{
+    "name": "H360Copilot",
+    "alias": "h360copilot",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\H360Copilot\\Providers\\H360CopilotServiceProvider"
+    ],
+    "files": []
+}

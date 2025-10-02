@@ -150,4 +150,26 @@ class ClientController extends Controller
 
         return redirect()->back()->with('status', $output);
     }
+
+    public function regenerate()
+    {
+        if (! auth()->user()->can('superadmin')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        try {
+            Artisan::call('passport:install --force');
+            // Artisan::call('scribe:generate');
+
+            $output = ['success' => 1,
+                'msg' => __('lang_v1.success'),
+            ];
+        } catch (Exception $e) {
+            $output = ['success' => 1,
+                'msg' => $e->getMessage(),
+            ];
+        }
+
+        return redirect()->back()->with('status', $output);
+    }
 }

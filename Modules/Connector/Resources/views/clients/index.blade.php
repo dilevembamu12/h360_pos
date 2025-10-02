@@ -4,7 +4,7 @@
 @section('vue')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang( 'connector::lang.clients' )</h1>
+    <h1>@lang( 'connector::lang.clients' )</h1>
 </section>
 
 @if(empty($is_demo))
@@ -12,15 +12,15 @@
 	@component('components.widget', ['class' => 'box-solid', 'title' => __( 'connector::lang.clients' )])
         @slot('tool')
             <div class="box-tools">
-                    <button data-toggle="modal" data-target="#create_client_modal" class="tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-righ btn-modal">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 5l0 14" />
-                        <path d="M5 12l14 0" />
-                      </svg> @lang('essentials::lang.add_reminder')
-                    </button>
+                @can('superadmin')
+                    <a href="{{action([\Modules\Connector\Http\Controllers\ClientController::class, 'regenerate'])}}" class="btn btn-block btn-default" >
+                    <i class="fas fa-plus"></i> @lang( 'connector::lang.regenerate_doc' )</a>
+                @endcan
+                
+                <button type="button" class="btn btn-block btn-primary btn-modal" 
+                    data-toggle="modal" 
+                    data-target="#create_client_modal">
+                    <i class="fas fa-plus"></i> @lang( 'connector::lang.create_client' )</button>
             </div>
         @endslot
         <div class="table-responsive">
@@ -39,7 +39,7 @@
                 			<td>{{$client->id}}</td>
                 			<td>{{$client->name}}</td>
                 			<td>{{$client->secret}}</td>
-                			<td>{!! Form::open(['url' => action([\Modules\Connector\Http\Controllers\ClientController::class, 'destroy'], [$client->id]), 'method' => 'delete', 'id' => 'create_client_form' ]) !!}<button type="submit" class="tw-dw-btn tw-dw-btn-xs tw-dw-btn-outline  tw-dw-btn-error"><i class="fas fa-trash"></i> @lang( 'messages.delete' )</button>{!! Form::close() !!}</td>
+                			<td>{!! Form::open(['url' => action([\Modules\Connector\Http\Controllers\ClientController::class, 'destroy'], [$client->id]), 'method' => 'delete', 'id' => 'create_client_form' ]) !!}<button type="submit" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> @lang( 'messages.delete' )</button>{!! Form::close() !!}</td>
                 		</tr>
                 	@endforeach
                 </tbody>
@@ -78,8 +78,8 @@
     </div>
 
     <div class="modal-footer">
-      <button type="submit" class="tw-dw-btn tw-dw-btn-primary tw-text-white">@lang( 'messages.save' )</button>
-      <button type="button" class="tw-dw-btn tw-dw-btn-neutral tw-text-white" data-dismiss="modal">@lang( 'messages.close' )</button>
+      <button type="submit" class="btn btn-primary">@lang( 'messages.save' )</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">@lang( 'messages.close' )</button>
     </div>
 
     {!! Form::close() !!}

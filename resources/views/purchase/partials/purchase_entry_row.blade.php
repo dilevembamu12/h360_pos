@@ -54,17 +54,11 @@
     //dd($variations);
 
     $rate = 1;
-    
-    try {
-        if (array_key_exists('currency_' . $_currency_id, json_decode($business->second_currency_settings, true))) {
+    if (array_key_exists('currency_' . $_currency_id, json_decode($business->second_currency_settings, true))) {
         $rate = json_decode($business->second_currency_settings, true)['currency_' . $_currency_id];
     } 
     //dd($rate);
-    //$rate = 2700;
-} catch (error) {
-    
-}
-    
+    $rate = 2700;
 
 
     //dd($currencies);

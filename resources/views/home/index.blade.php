@@ -1099,22 +1099,3 @@
         });
     </script>
 @endsection
-
-
-
-@section("tutoriels-video")
-<div class="row">
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/c5UMO38o3ek?rel=0" title="H360🛒POS - ASTUCE"
-                    allowfullscreen></iframe>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">H360🛒POS - ASTUCE</h5>
-                <p class="card-text">comment faire un raccourci bureau de H360🛒POS</p>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection

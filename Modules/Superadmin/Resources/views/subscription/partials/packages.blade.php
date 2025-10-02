@@ -2,20 +2,13 @@
 @php
     $count = 0;
     $packages_popular = [];
-    $packages_days = [];
     $packages_months = [];
     $packages_years = [];
     $packages_live = [];
-    
-    
 
     foreach ($packages as $key => $package) {
         if($package->mark_package_as_popular == 1){
             $packages_popular[] = $package;
-        }
-        
-        if ($package->interval == 'days') {
-            $packages_days[] = $package;
         }
         elseif ($package->interval == 'months' || $package->interval == 'days') {
             $packages_months[] = $package;
@@ -33,7 +26,6 @@
         <li class="active"><a href="#tab_0" data-toggle="tab" aria-expanded="true">**Licence <span class="badge bg-green">
             @lang('superadmin::lang.popular')
         </span></a></li>
-        <li class=""><a href="#tab_01" data-toggle="tab" aria-expanded="false">**Licence JOURNALIERE</a></li>
         <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">**Licence MENSUELLE</a></li>
         <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">**Licence ANNUELLE</a></li>
         <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">**Licence A VIE</a></li>
@@ -72,45 +64,9 @@
 
             </div>
         </div>
-        
-        <div class="tab-pane" id="tab_01">
-            <div class="row">
-
-                @foreach ($packages_days as $package)
-                    @if ($package->interval == 'months' || $package->interval == 'days')
-                        @if ($package->is_private == 1 && !auth()->user()->can('superadmin'))
-                            @php
-                                continue;
-                            @endphp
-                        @endif
-
-                        @php
-                            $businesses_ids = json_decode($package->businesses);
-                        @endphp
-
-                        @if (Route::current()->getName() == 'subscription.index' &&
-                                ((is_array($businesses_ids) && in_array(auth()->user()->business_id, $businesses_ids)) ||
-                                    is_null($package->businesses)))
-                            @php
-                                $count++;
-                            @endphp
-                            @include('superadmin::subscription.partials.package_card')
-                        @elseif(Route::current()->getName() == 'pricing' && is_null($package->businesses))
-                            @php
-                                $count++;
-                            @endphp
-                            @include('superadmin::subscription.partials.package_card')
-                        @endif
-                    @endif
-                @endforeach
-                
-
-            </div>
-        </div>
 
         <div class="tab-pane " id="tab_1">
-            <div class="row">   
-                
+            <div class="row">
 
                 @foreach ($packages_months as $package)
                     @if ($package->interval == 'months' || $package->interval == 'days')
@@ -139,7 +95,7 @@
                         @endif
                     @endif
                 @endforeach
-                
+
             </div>
         </div>
         <!-- /.tab-pane -->
@@ -191,8 +147,6 @@
                             @endif
                         @endif
                     @endforeach
-                    
-                    
                 </div>
             </div>
             <br>

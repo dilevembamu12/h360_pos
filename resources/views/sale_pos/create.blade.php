@@ -149,33 +149,3 @@
 
 
 @endsection
-
-
-@section("tutoriels-video")
-<div class="row">
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/DfYhVYS9vyI?rel=0" title="H360🛒POS - GESTION DE ROLE"
-                    allowfullscreen></iframe>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">H360🛒POS - CAISSE ET VENTE</h5>
-                <p class="card-text">comment vendre avec l'écran POS au niveau de la caisses</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/b5fqtV6_KCE?rel=0" title="H360🛒POS - GESTION DE ROLE"
-                    allowfullscreen></iframe>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">H360🛒POS - CAISSE ET VENTE</h5>
-                <p class="card-text">comment gérer la Livraison ou Expédition des Produits avec H360 POS</p>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection

@@ -692,7 +692,9 @@
         "Automatisez votre business dès aujourd'hui: contactez nous au ", "Avez-vous besoin du logiciel: contactez nous au "
         );
     @endphp
-    <p class="centered" style="font-size: 9px;padding:0px 0px 15px 0px">>>> {{$a[array_rand($a)]}} <strong><a href="https://wa.me/243812558314?text=je%20suis%20int%C3%A9ress%C3%A9(e)%20par%20votre%20logiciel,%20comment%20faire%20pour%20souscrire?" >+243812558314</a></strong><<<</p>
+	@if (!in_array(auth()->user()->business_id, explode(',', env('EXCEPTION_PUB_FOOTER'))))
+		<p class="centered" style="font-size: 9px;padding:0px 0px 15px 0px">>>> {{$a[array_rand($a)]}} <strong><a href="https://wa.me/243812558314?text=je%20suis%20int%C3%A9ress%C3%A9(e)%20par%20votre%20logiciel,%20comment%20faire%20pour%20souscrire?" >+243812558314</a></strong><<<</p>
+	@endif
     
     </body>
 </html>

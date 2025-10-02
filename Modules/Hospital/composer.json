@@ -1,0 +1,23 @@
+{
+    "name": "nwidart/hospital",
+    "description": "Module de gestion complète d'un hôpital ou établissement de santé, couvrant l'accueil patient, gestion personnel, dossiers médicaux, facturation, labo, gestion lits et urgences.",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Hospital\\": ""
+        }
+    }
+}

@@ -122,5 +122,5 @@
     <!-- /.box -->
 </div>
 @if($count%3 == 0)
-    <!--  <div class="clearfix"></div> -->
+    <div class="clearfix"></div>
 @endif

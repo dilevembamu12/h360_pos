@@ -15,7 +15,6 @@ class InstallController extends Controller
     {
         $this->module_name = 'connector';
         $this->appVersion = config('connector.module_version');
-        $this->module_display_name = 'Connector';
     }
 
     /**
@@ -42,10 +41,12 @@ class InstallController extends Controller
             abort(404);
         }
 
-        $this->install();
-        return redirect()
-            ->action('\App\Http\Controllers\Install\ModulesController@index')
-            ->with('status', $output);
+        $action_url = action([\Modules\Connector\Http\Controllers\InstallController::class, 'install']);
+
+        $intruction_type = 'uf';
+
+        return view('install.install-module')
+            ->with(compact('action_url', 'intruction_type'));
     }
 
     /**
@@ -54,7 +55,19 @@ class InstallController extends Controller
     public function install()
     {
         try {
-            
+            request()->validate(
+                ['license_code' => 'required',
+                    'login_username' => 'required', ],
+                ['license_code.required' => 'License code is required',
+                    'login_username.required' => 'Username is required', ]
+            );
+
+            DB::beginTransaction();
+
+            $license_code = request()->license_code;
+            $email = request()->email;
+            $login_username = request()->login_username;
+            $pid = config('connector.pid');
 
             $is_installed = System::getProperty($this->module_name.'_version');
             if (! empty($is_installed)) {

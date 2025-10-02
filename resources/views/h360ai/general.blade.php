@@ -1,4 +1,3 @@
-{{--
 @php
     use Carbon\Carbon;
     Carbon::setLocale('fr');
@@ -190,8 +189,8 @@
 </body>
 
 </html>
---}}
 
+{{--
 @php
 use Carbon\Carbon;
 Carbon::setLocale('fr');
@@ -393,3 +392,4 @@ return $value . ' ' . $_business_details->currency_code;
 </body>
 
 </html>
+--}}

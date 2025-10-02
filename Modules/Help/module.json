@@ -1,0 +1,14 @@
+
+{
+    "name": "Help",
+    "alias": "help",
+    "description": "Module d'aide et de tutoriels pour H360🛒POS.",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Help\\Providers\\HelpServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
