@@ -17,5 +17,9 @@
     "AiAssistance": true,
     "InventoryManagement": true,
     "Hms": true,
-    "ProToolsKit": true
+    "Hopital": true,
+    "Whatsapp": true,
+    "Hospital": true,
+    "Help": true,
+    "H360Copilot": true
 }
