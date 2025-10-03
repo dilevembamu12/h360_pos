@@ -42,10 +42,7 @@ return [
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
-            //'local_domain' => env('MAIL_EHLO_DOMAIN'),
-            //'local_domain' => env('MAIL_EHLO_DOMAIN',parse_url(env('APP_URL'))['host']),
-            'local_domain' => env('MAIL_EHLO_DOMAIN','localhost'),
-            //'local_domain' => env('MAIL_EHLO_DOMAIN','commerce.eyano.cfd'),
+            'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
 
         'ses' => [
@@ -73,15 +70,6 @@ return [
         'array' => [
             'transport' => 'array',
         ],
-        'timeout' => null,
-            'auth_mode' => null,
-            'stream' => [
-                'ssl' => [
-                    'allow_self_signed' => true,
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                ],
-            ],
 
         'failover' => [
             'transport' => 'failover',
@@ -91,8 +79,6 @@ return [
             ],
         ],
     ],
-
-
 
     /*
     |--------------------------------------------------------------------------

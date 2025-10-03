@@ -18,6 +18,8 @@ class SetSessionData
      */
     public function handle($request, Closure $next)
     {
+        //\DB::enableQueryLog();
+        
         if (! $request->session()->has('user')) {
             $business_util = new BusinessUtil;
 
@@ -47,8 +49,11 @@ class SetSessionData
             //set current financial year to session
             $financial_year = $business_util->getCurrentFinancialYear($business->id);
             $request->session()->put('financial_year', $financial_year);
+
         }
 
+        
+            //dd(\DB::getQueryLog());
         return $next($request);
     }
 }

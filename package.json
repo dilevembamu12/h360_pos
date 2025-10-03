@@ -21,7 +21,8 @@
         "sass-loader": "^11.0.1",
         "vue": "^2.5.17",
         "vue-loader": "^15.9.8",
-        "vue-template-compiler": "^2.6.11"
+        "vue-template-compiler": "^2.6.11",
+        "laravel-mix-merge-manifest": "^2.0.0"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.12.0",

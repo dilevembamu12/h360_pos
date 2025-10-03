@@ -14,8 +14,7 @@ return [
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        //'name' => 'UltimatePOS',
-        'name' => 'H360_POS',//ca genere une erreur ==>Unable to list contents for 'H360_POS', shallow listing Reason: DirectoryIterator::__construct(/www/wwwroot/BUSINESS/ENTREPRISE/H360/INTERNE/PROD/H360
+        'name' => 'H360_POS',
 
         'source' => [
 

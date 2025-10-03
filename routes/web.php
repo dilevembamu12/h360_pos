@@ -81,19 +81,10 @@ use App\Http\Controllers\H360ai;
 
 include_once 'install_r.php';
 
-Route::get('/policy', function () {
-        return view('policy');
-    });
-Route::get('/data-deletion', function () {
-        return view('deleteme');
-    });
-    
 Route::middleware(['setData'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
-    
-    
 
     Auth::routes();
 
@@ -128,6 +119,8 @@ Route::middleware(['setData'])->group(function () {
     /*********************************************** POSGPT **************************************/
     /********** ------------- */
     Route::prefix('h360ai')->group(function () {
+        Route::get('/users', [H360ai\UserController::class, 'create']); //custom
+
         Route::get('/posgpt', [H360ai\PosGPTController::class, 'index']); //custom
         Route::get('/doc', [H360ai\PosGPTController::class, 'doc']); //Pour la documentation
     });
@@ -169,7 +162,7 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
 
     Route::resource('brands', BrandController::class);
 
-    Route::resource('payment-account', 'PaymentAccountController');
+    //**Route::resource('payment-account', 'PaymentAccountController');
 
     Route::resource('tax-rates', TaxRateController::class);
 

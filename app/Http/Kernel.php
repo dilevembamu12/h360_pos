@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
         'CheckUserLogin' => \App\Http\Middleware\CheckUserLogin::class,
 
         'is_admin_user' => \Modules\Help\Http\Middleware\IsAdminUser::class,
+        'copilot.token' => \Modules\H360Copilot\Http\Middleware\VerifyCopilotToken::class,
     ];
 }

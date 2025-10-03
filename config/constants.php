@@ -32,8 +32,8 @@ return [
     'langs_rtl' => ['ar'],
     'non_utf8_languages' => ['ar', 'hi', 'ps'],
 
-    'document_size_limit' => '10000000', //in Bytes,
-    'image_size_limit' => '10000000', //in Bytes
+    'document_size_limit' => '5000000', //in Bytes,
+    'image_size_limit' => '5000000', //in Bytes
 
     'asset_version' => 511,
 
@@ -45,11 +45,11 @@ return [
 
     'product_img_path' => 'img',
 
-    'enable_sell_in_diff_currency' => false,
+    'enable_sell_in_diff_currency' => true,
     'currency_exchange_rate' => 1,
     'orders_refresh_interval' => 600, //Auto refresh interval on Kitchen and Orders page in seconds,
 
-    'default_date_format' => 'd/m/Y', //Default date format to be used if session is not set. All valid formats can be found on https://www.php.net/manual/en/function.date.php
+    'default_date_format' => 'm/d/Y', //Default date format to be used if session is not set. All valid formats can be found on https://www.php.net/manual/en/function.date.php
 
     'new_notification_count_interval' => 60, //Interval to check for new notifications in seconds;Default is 60sec
 
@@ -72,11 +72,12 @@ return [
     'show_report_607' => false,
     'whatsapp_base_url' => 'https://wa.me',
     'enable_crm_call_log' => false,
-    'enable_product_bulk_edit' => false,  //Will be depreciated in future
+    //'enable_product_bulk_edit' => false,  //Will be depreciated in future
+    'enable_product_bulk_edit' => true,  //Will be depreciated in future
     'enable_convert_draft_to_invoice' => false, //Experimental beta feature.
     'enable_download_pdf' => true,//false         //Experimental feature
     'invoice_scheme_separator' => '-',
-    'show_payments_recovered_today' => true, //Displays payment recovered today table on dashboard
+    'show_payments_recovered_today' => false, //Displays payment recovered today table on dashboard
     'enable_b2b_marketplace' => true,
     'enable_contact_assign' => true, //Used in add/edit contacts screen
     'show_payment_type_on_contact_pay' => true,

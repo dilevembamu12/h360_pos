@@ -6,7 +6,7 @@ $(document).ready(function() {
     var input = $('#h360-chatbot-input');
     var sendBtn = $('#h360-chatbot-send-btn');
 
-    // --- NOUVEAU : Gérer le menu mobile ---
+    // --- Gérer le menu mobile ---
     $('#h360-chatbot-menu-toggle').on('click', function() {
         chatContainer.toggleClass('sidebar-open');
     });
@@ -38,10 +38,115 @@ $(document).ready(function() {
         });
     });
 
-    // --- Logique de conversation (mise à jour) ---
+    /**
+     * NOUVEAU: Fonction de formatage Markdown avancée pour les réponses du bot.
+     * Gère les titres, listes, blocs de code, gras, italique, etc.
+     *
+     * @param {string} text - Le texte brut de l'IA au format Markdown.
+     * @returns {string} - Le texte formaté en HTML.
+     */
+    function formatBotMessage(text) {
+        // Fonction pour échapper les caractères HTML de base dans le contenu
+        const escapeHtml = (unsafe) => {
+            if (!unsafe) return '';
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        };
+
+        let html = '\n' + text + '\n';
+
+        // --- Blocs de code (doivent être traités en premier) ---
+        // ```lang\n code \n```
+        html = html.replace(/\n```(\w*)\n([\s\S]+?)\n```\n/g, (match, lang, code) => {
+            const escapedCode = escapeHtml(code);
+            // Nous ajoutons une classe pour la coloration syntaxique, qui peut être gérée par une bibliothèque comme Prism.js ou highlight.js
+            return `\n<pre><code class="language-${lang || ''}">${escapedCode.trim()}</code></pre>\n`;
+        });
+        
+        // --- Éléments de bloc ---
+        
+        // Titres (h1-h6)
+        html = html.replace(/^\s*(#{1,6})\s+(.*)/gm, (match, hashes, content) => {
+            const level = hashes.length;
+            return `<h${level}>${content}</h${level}>`;
+        });
+
+        // Blockquotes
+        html = html.replace(/((?:^> .*(?:\n|$))+)/gm, (match) => {
+            const content = match.replace(/^> /gm, '');
+            return `<blockquote>${content.replace(/\n$/, '').replace(/\n/g, '<br>')}</blockquote>`;
+        });
+        
+        // Lignes horizontales
+        html = html.replace(/^\s*(?:---|\*\*\*|___)\s*$/gm, '<hr>');
+
+        // Listes (regroupe les éléments consécutifs)
+        // Non ordonnée
+        html = html.replace(/((?:^\s*[\*\-\+]\s.*\n?)+)/gm, (match) => {
+            const items = match.trim().split('\n').map(item => `<li>${item.replace(/^\s*[\*\-\+]\s/, '')}</li>`).join('');
+            return `<ul>${items}</ul>`;
+        });
+
+        // Ordonnée
+        html = html.replace(/((?:^\s*\d+\.\s.*\n?)+)/gm, (match) => {
+            const items = match.trim().split('\n').map(item => `<li>${item.replace(/^\s*\d+\.\s/, '')}</li>`).join('');
+            return `<ol>${items}</ol>`;
+        });
+
+        // --- Éléments en ligne (après les blocs) ---
+        
+        // Liens: [texte](url)
+        html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+        
+        // Gras et Italique (***texte*** ou ___text___)
+        html = html.replace(/(\*\*\*|___)(.*?)\1/g, '<strong><em>$2</em></strong>');
+
+        // Gras (**text** ou __text__)
+        html = html.replace(/(\*\*|__)(.*?)\1/g, '<strong>$2</strong>');
+
+        // Italique (*text* ou _text_)
+        html = html.replace(/(\*|_)(.*?)\1/g, '<em>$2</em>');
+
+        // Barré (~~text~~)
+        html = html.replace(/~~(.*?)~~/g, '<s>$1</s>');
+        
+        // Code en ligne: `code`
+        html = html.replace(/`([^`]+)`/g, (match, code) => `<code>${escapeHtml(code)}</code>`);
+
+        // --- Paragraphes et sauts de ligne ---
+        html = html.split(/\n\s*\n/).map(paragraph => {
+            paragraph = paragraph.trim();
+            if (!paragraph) return '';
+
+            // Ne pas envelopper les éléments de bloc déjà formatés dans des balises <p>
+            if (paragraph.match(/^\s*<(ul|ol|li|h[1-6]|blockquote|pre|hr|table|thead|tbody|tr|th|td)/)) {
+                return paragraph;
+            }
+            
+            // Remplace les sauts de ligne simples par <br> à l'intérieur des paragraphes
+            return `<p>${paragraph.replace(/\n/g, '<br>')}</p>`;
+        }).join('').replace(/<br>\s*<br>/g, '<br>');
+
+        return html.trim();
+    }
+
+    // --- Logique de conversation (MISE À JOUR) ---
     function addMessage(text, type) {
         var messageClass = type;
-        var message = $('<div class="ai-chat-message ' + messageClass + '"></div>').text(text);
+        var message = $('<div class="ai-chat-message ' + messageClass + '"></div>');
+        
+        // Pour les messages du bot, utiliser .html() pour afficher le formatage.
+        // Pour les messages de l'utilisateur, utiliser .text() pour des raisons de sécurité.
+        if (type === 'bot' || type === 'bot loading') {
+            message.html(formatBotMessage(text));
+        } else {
+            message.text(text);
+        }
+        
         chatBody.append(message);
         chatBody.scrollTop(chatBody[0].scrollHeight);
         return message;
@@ -63,11 +168,12 @@ $(document).ready(function() {
             data: { prompt: prompt, _token: $('meta[name="csrf-token"]').attr('content') },
             success: function(response) {
                 var responseText = response.output || "Désolé, je n'ai pas pu obtenir de réponse.";
-                loadingMessage.text(responseText).removeClass('loading');
-                loadingMessage.text(responseText).removeClass('loading');
+                // Mettre à jour le message de chargement avec la réponse formatée
+                loadingMessage.html(formatBotMessage(responseText)).removeClass('loading');
             },
             error: function() {
-                loadingMessage.text("Erreur de connexion avec l'assistant.").removeClass('loading');
+                 // Mettre à jour avec un message d'erreur formaté
+                loadingMessage.html(formatBotMessage("Erreur de connexion avec l'assistant.")).removeClass('loading');
             },
             complete: function() {
                 sendBtn.prop('disabled', false);
@@ -84,7 +190,7 @@ $(document).ready(function() {
     });
 
     // Gérer le clic sur les suggestions
-    $('.suggestion-btn').on('click', function() {
+    $(document).on('click', '.suggestion-btn, .suggestion-pill', function() {
         var prompt = $(this).data('prompt');
         sendMessage(prompt);
     });
@@ -95,3 +201,4 @@ $(document).ready(function() {
         $('.floating-help-container').removeClass('active');
     });
 });
+
